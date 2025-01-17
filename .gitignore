@@ -1,0 +1,27 @@
+# General
+.DS_Store
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+db.sqlite3
+venv/
+.env
+
+# React
+node_modules/
+build/
+coverage/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Render
+render.yaml
