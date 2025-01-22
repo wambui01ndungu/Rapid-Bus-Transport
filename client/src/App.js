@@ -1,17 +1,14 @@
-import React, { useEffect } from "react";
-import Dashboard from "./components/Dashboard"; // Ensure the path to Dashboard is correct.
-import "./index.css"; // Import Tailwind styles
+import { Routes, Route } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
+import SignupForm from './components/SignupForm';
 
 function App() {
-  useEffect(() => {
-    document.title = "Rapid Bus Transport"; // Dynamically set the page title.
-  }, []);
-
   return (
-    <div>
-      {/* Render the Dashboard component */}
-      <Dashboard />
-    </div>
+    <Routes>
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/signup" element={<SignupForm />} />
+      <Route path="*" element={<Dashboard />} /> {/* Fallback route */}
+    </Routes>
   );
 }
 
