@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDown, Home, User } from "lucide-react";
+import { Link } from "react-router-dom"; // Import Link for navigation
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState("DASHBOARD OVERVIEW");
@@ -62,6 +63,13 @@ const Dashboard = () => {
               className="pl-8 pr-4 py-2 rounded-full bg-gray-200 text-black"
             />
           </div>
+          {/* Add the Signup Link here */}
+          <Link 
+            to="/signup" 
+            className="text-black hover:text-gray-800 transition-colors"
+          >
+            Create Account
+          </Link>
           <div className="flex items-center gap-2">
             <User className="h-6 w-6 text-black bg-white rounded-full p-1" />
             <span className="text-sm">Welcome Admin Jane</span>
@@ -186,70 +194,73 @@ const Dashboard = () => {
               </div>
             </div>
           )}
-{activeSection === "ROUTES MANAGEMENT" && (
-  <div className="bg-gray-200 p-6 rounded-lg shadow-md">
-    <div className="flex items-center justify-between mb-6">
-      <h2 className="text-2xl font-bold text-gray-800">🚦 Routes Management</h2>
-      <button className="bg-amber-600 text-black px-4 py-2 rounded-md hover:bg-amber-700 transition-colors">
-        + Create New Route
-      </button>
-    </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* Route Configuration */}
-      <div className="bg-white p-4 rounded-lg shadow-sm">
-        <h3 className="font-semibold text-lg mb-3">Route Configuration</h3>
-        <ul className="list-disc pl-6 space-y-3">
-          <li className="flex items-center gap-2">
-            <span>🗺️ Assign routes to specific drivers</span>
-            <span className="text-xs bg-gray-100 px-2 py-1 rounded">Drag & Drop</span>
-          </li>
-          <li>📝 Update route details (stops, destinations, schedules)</li>
-          <li>⏱️ Set time windows for deliveries/pickups</li>
-          <li>⚙️ Configure route optimization parameters</li>
-        </ul>
-      </div>
+          {/* Routes Management */}
+          {activeSection === "ROUTES MANAGEMENT" && (
+            <div className="bg-gray-200 p-6 rounded-lg shadow-md">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-800">🚦 Routes Management</h2>
+                <button className="bg-amber-600 text-black px-4 py-2 rounded-md hover:bg-amber-700 transition-colors">
+                  + Create New Route
+                </button>
+              </div>
 
-      {/* Real-time Monitoring */}
-      <div className="bg-white p-4 rounded-lg shadow-sm">
-        <h3 className="font-semibold text-lg mb-3">Live Monitoring</h3>
-        <ul className="list-disc pl-6 space-y-3">
-          <li className="flex items-center gap-2">
-            <span>📡 Real-time GPS tracking</span>
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          </li>
-          <li>🚨 Automatic delay alerts</li>
-          <li>📊 Performance dashboard:
-            <ul className="list-circle pl-4 mt-2 space-y-2">
-              <li>⏰ Timeliness metrics</li>
-              <li>🚦 Traffic pattern analysis</li>
-              <li>⛽ Fuel efficiency tracking</li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Route Configuration */}
+                <div className="bg-white p-4 rounded-lg shadow-sm">
+                  <h3 className="font-semibold text-lg mb-3">Route Configuration</h3>
+                  <ul className="list-disc pl-6 space-y-3">
+                    <li className="flex items-center gap-2">
+                      <span>🗺️ Assign routes to specific drivers</span>
+                      <span className="text-xs bg-gray-100 px-2 py-1 rounded">Drag & Drop</span>
+                    </li>
+                    <li>📝 Update route details (stops, destinations, schedules)</li>
+                    <li>⏱️ Set time windows for deliveries/pickups</li>
+                    <li>⚙️ Configure route optimization parameters</li>
+                  </ul>
+                </div>
 
-    {/* Advanced Features Section */}
-    <div className="mt-6 bg-white p-4 rounded-lg shadow-sm">
-      <h3 className="font-semibold text-lg mb-3">Advanced Features</h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-3 border rounded-md">
-          <h4 className="font-medium mb-2">📅 Historical Analysis</h4>
-          <p className="text-sm text-gray-600">Compare route performance over time</p>
-        </div>
-        <div className="p-3 border rounded-md">
-          <h4 className="font-medium mb-2">📱 Driver Communication</h4>
-          <p className="text-sm text-gray-600">In-app messaging & notifications</p>
-        </div>
-        <div className="p-3 border rounded-md">
-          <h4 className="font-medium mb-2">📈 Predictive Analytics</h4>
-          <p className="text-sm text-gray-600">AI-powered ETA predictions</p>
-        </div>
-      </div>
-    </div>
-  </div>
-)}
+                {/* Real-time Monitoring */}
+                <div className="bg-white p-4 rounded-lg shadow-sm">
+                  <h3 className="font-semibold text-lg mb-3">Live Monitoring</h3>
+                  <ul className="list-disc pl-6 space-y-3">
+                    <li className="flex items-center gap-2">
+                      <span>📡 Real-time GPS tracking</span>
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    </li>
+                    <li>🚨 Automatic delay alerts</li>
+                    <li>📊 Performance dashboard:
+                      <ul className="list-circle pl-4 mt-2 space-y-2">
+                        <li>⏰ Timeliness metrics</li>
+                        <li>🚦 Traffic pattern analysis</li>
+                        <li>⛽ Fuel efficiency tracking</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Advanced Features Section */}
+              <div className="mt-6 bg-white p-4 rounded-lg shadow-sm">
+                <h3 className="font-semibold text-lg mb-3">Advanced Features</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="p-3 border rounded-md">
+                    <h4 className="font-medium mb-2">📅 Historical Analysis</h4>
+                    <p className="text-sm text-gray-600">Compare route performance over time</p>
+                  </div>
+                  <div className="p-3 border rounded-md">
+                    <h4 className="font-medium mb-2">📱 Driver Communication</h4>
+                    <p className="text-sm text-gray-600">In-app messaging & notifications</p>
+                  </div>
+                  <div className="p-3 border rounded-md">
+                    <h4 className="font-medium mb-2">📈 Predictive Analytics</h4>
+                    <p className="text-sm text-gray-600">AI-powered ETA predictions</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Driver Management */}
           {activeSection === "DRIVER MANAGEMENT" && (
             <div className="bg-gray-200 p-4 rounded-lg">
