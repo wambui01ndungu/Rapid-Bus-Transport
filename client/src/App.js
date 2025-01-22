@@ -1,16 +1,21 @@
-import {useEffect} from "react"
+import React, { useEffect } from "react";
+import Dashboard from "./components/Dashboard"; // Ensure the path to Dashboard is correct.
+import "./index.css"; // Import Tailwind styles
 
 function App() {
   useEffect(() => {
-    document.title = "Rapid Bus Transport";
-  },[]);
-  
+    document.title = "Rapid Bus Transport"; // Dynamically set the page title.
+  }, []);
+
   return (
     <div>
-      { <h1> Welcome To Rapid Bus Transport</h1>}
+      {/* Render the Dashboard component */}
+      <Dashboard />
     </div>
   );
 }
-   
 
 export default App;
+
+
+
