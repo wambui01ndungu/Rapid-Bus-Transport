@@ -102,7 +102,7 @@ const Dashboard = () => {
         <main className="flex-1 p-6 bg-gray-100">
           {/* Dashboard Overview */}
           {activeSection === "DASHBOARD OVERVIEW" && (
-            <div className="bg-gray-200 p-4 rounded-lg">
+            <div className="bg-gray-800 p-4 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">Dashboard Overview</h2>
               <ul className="list-disc pl-6">
                 {sidebarItems.map((item, index) => (
@@ -114,7 +114,7 @@ const Dashboard = () => {
 
           {/* Booking Management */}
           {activeSection === "BOOKING MANAGEMENT" && (
-            <div className="bg-gray-200 p-4 rounded-lg">
+            <div className="bg-gray-800 p-4 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">Booking Management</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
@@ -154,7 +154,7 @@ const Dashboard = () => {
 
           {/* Fleet Management */}
           {activeSection === "FLEET MANAGEMENT" && (
-            <div className="bg-gray-200 p-4 rounded-lg">
+            <div className="bg-gray-800 p-4 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">Fleet Management</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
@@ -197,7 +197,7 @@ const Dashboard = () => {
 
           {/* Routes Management */}
           {activeSection === "ROUTES MANAGEMENT" && (
-            <div className="bg-gray-200 p-6 rounded-lg shadow-md">
+            <div className="bg-gray-800 p-4 rounded-lg">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-gray-800">🚦 Routes Management</h2>
                 <button className="bg-amber-600 text-black px-4 py-2 rounded-md hover:bg-amber-700 transition-colors">
@@ -221,7 +221,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Real-time Monitoring */}
-                <div className="bg-white p-4 rounded-lg shadow-sm">
+                <div className="bg-gray-800 p-4 rounded-lg">
                   <h3 className="font-semibold text-lg mb-3">Live Monitoring</h3>
                   <ul className="list-disc pl-6 space-y-3">
                     <li className="flex items-center gap-2">
@@ -241,7 +241,7 @@ const Dashboard = () => {
               </div>
 
               {/* Advanced Features Section */}
-              <div className="mt-6 bg-white p-4 rounded-lg shadow-sm">
+              <div className="bg-gray-800 p-4 rounded-lg">
                 <h3 className="font-semibold text-lg mb-3">Advanced Features</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="p-3 border rounded-md">
@@ -263,7 +263,7 @@ const Dashboard = () => {
 
           {/* Driver Management */}
           {activeSection === "DRIVER MANAGEMENT" && (
-            <div className="bg-gray-200 p-4 rounded-lg">
+            <div className="bg-gray-800 p-4 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">Driver Management</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
@@ -302,7 +302,7 @@ const Dashboard = () => {
 
           {/* User Management */}
           {activeSection === "USER MANAGEMENT" && (
-            <div className="bg-gray-200 p-4 rounded-lg">
+            <div className="bg-gray-800 p-4 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">User Management</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
@@ -343,7 +343,7 @@ const Dashboard = () => {
 
           {/* Revenue Management */}
           {activeSection === "REVENUE" && (
-            <div className="bg-gray-200 p-4 rounded-lg">
+            <div className="bg-gray-800 p-4 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">Revenue Management</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-white p-4 rounded-lg">
@@ -382,7 +382,7 @@ const Dashboard = () => {
 
           {/* Support Requests */}
           {activeSection === "SUPPORT REQUESTS" && (
-            <div className="bg-gray-200 p-4 rounded-lg">
+            <div className="bg-gray-800 p-4 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">Support Requests</h2>
               <div className="bg-white rounded-lg overflow-hidden">
                 <table className="w-full">

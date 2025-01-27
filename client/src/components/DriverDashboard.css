@@ -1,0 +1,167 @@
+/* General Layout */
+.drivers-dashboard-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f9fafb; /* Light gray background */
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar Navigation */
+.drivers-sidebar {
+  width: 250px;
+  background-color: #1f2937; /* Dark gray (tailwind: gray-800) */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.drivers-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.drivers-sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.drivers-sidebar li:hover {
+  background-color: #374151; /* Slightly lighter gray */
+}
+
+.arrow-left {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.arrow-icon {
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* Topbar Section */
+.drivers-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #4b5563; /* Tailwind gray-700 */
+  color: white;
+}
+
+.company-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.search-bar {
+  width: 50%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Profile Icon */
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.driver-icon {
+  font-size: 2rem;
+}
+
+/* Main Dashboard Content */
+.drivers-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.drivers-dashboard-content {
+  padding: 2rem;
+  background-color: rgb(67, 93, 131);
+  border-radius: 8px;
+  margin: 1rem 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Forms and Tables */
+input,
+select,
+button {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db; /* Tailwind gray-300 */
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #3b82f6; /* Tailwind blue-500 */
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2563eb; /* Tailwind blue-600 */
+}
+
+.drivers-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.drivers-table th,
+.drivers-table td {
+  border: 1px solid #d1d5db; /* Tailwind gray-300 */
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.drivers-table th {
+  background-color: #f3f4f6; /* Light gray */
+  font-weight: bold;
+}
+
+/* Messages */
+.message-container {
+  margin-bottom: 1rem;
+}
+
+.message {
+  padding: 0.5rem;
+  border: 1px solid #d1d5db; /* Tailwind gray-300 */
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.send-message-section {
+  display: flex;
+  gap: 1rem;
+}
+
+.send-message-section input {
+  flex: 1;
+}
