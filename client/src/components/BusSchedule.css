@@ -1,0 +1,74 @@
+.bus-schedule-container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h2 {
+  color: #333;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.filters input,
+.filters select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: white; 
+  color: black; 
+  font-weight: bold; 
+}
+
+  .filters input::placeholder {
+    color: black;
+    opacity: 1;
+
+}
+.bus-schedule-table {
+  color: #333;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.bus-schedule-table th,
+.bus-schedule-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.bus-schedule-table th {
+  background: #bc8a15;
+  color: rgb(20, 20, 20);
+}
+
+.bus-schedule-table tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
+.book-btn {
+  background: #D97706;
+  height: 35px;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 9px;
+  display: colu;
+}
+
+.book-btn:hover {
+  background: #888785;
+}
