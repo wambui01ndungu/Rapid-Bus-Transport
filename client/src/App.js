@@ -4,23 +4,14 @@ import './App.css'; // Ensure to create and link a CSS file for styling
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import SignupForm from './components/SignupForm';
-import Login from './components/Login'
-import DriverDashboard from './components/DriverDashboard'
+import Login from './components/Login';
+import DriverDashboard from './components/DriverDashboard';
+import BusSchedule from './components/BusSchedule';
+
 
 // Placeholder components for routes (to be implemented later)
 
-const Schedules = () => (
-  <section id="schedules">
-    <h2>View Available Schedules</h2>
-    <p>Find and view available buses based on your selected travel date and route.</p>
-    {/* Placeholder: Replace with dynamic schedule content */}
-    <ul>
-      <li>Bus 1 - Route A - 10:00 AM</li>
-      <li>Bus 2 - Route B - 12:00 PM</li>
-      <li>Bus 3 - Route A - 02:00 PM</li>
-    </ul>
-  </section>
-);
+
 
 const Bookings = () => (
   <section id="bookings">
@@ -87,7 +78,7 @@ function App() {
         <nav>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/schedules">View Schedules</Link></li>
+            <li><Link to="/busSchedules"> Bus Schedule</Link></li>
             <li><Link to="/bookings">My Bookings</Link></li>
             <li><Link to="/login">Login</Link></li>
             <li><Link to="/signup">Register</Link></li>
@@ -98,7 +89,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/schedules" element={<Schedules />} />
+          <Route path="/busSchedules" element={<BusSchedule />} />
           <Route path="/bookings" element={<Bookings />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
