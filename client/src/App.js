@@ -7,23 +7,22 @@ import SignupForm from './components/SignupForm';
 import Login from './components/Login';
 import DriverDashboard from './components/DriverDashboard';
 import BusSchedule from './components/BusSchedule';
+import UserDashboard from './components/UserDashboard';
 
 
 // Placeholder components for routes (to be implemented later)
 
-
-
-const Bookings = () => (
-  <section id="bookings">
-    <h2>Your Bookings</h2>
-    <p>Manage your bookings: view, cancel, or modify your seat reservations.</p>
-    {/* Placeholder for dynamic booking data */}
-    <ul>
-      <li>Booking ID: 12345, Bus 1, Route A, Date: 2025-01-25</li>
-      <li>Booking ID: 12346, Bus 2, Route B, Date: 2025-01-26</li>
-    </ul>
-  </section>
-);
+// const Bookings = () => (
+//   <section id="bookings">
+//     <h2>Your Bookings</h2>
+//     <p>Manage your bookings: view, cancel, or modify your seat reservations.</p>
+//     {/* Placeholder for dynamic booking data */}
+//     <ul>
+//       <li>Booking ID: 12345, Bus 1, Route A, Date: 2025-01-25</li>
+//       <li>Booking ID: 12346, Bus 2, Route B, Date: 2025-01-26</li>
+//     </ul>
+//   </section>
+// );
 
 // const Login = () => (
 //   <section id="login">
@@ -90,7 +89,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/busSchedules" element={<BusSchedule />} />
-          <Route path="/bookings" element={<Bookings />} />
+          <Route path="/bookings" element={<UserDashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {/* <Route path="/admin" element={<AdminDashboard />} /> */}
