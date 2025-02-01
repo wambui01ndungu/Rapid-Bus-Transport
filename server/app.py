@@ -2,12 +2,14 @@ import os
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_cors import CORS
 from flask_restful import Api, Resource
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from datetime import datetime
 from models import db, User, Bus, Route, Schedule, Seat, Booking, Payment
 
 app = Flask(__name__)
+CORS(app ) # origins=["https://rapid-bus-transport-2.vercel.app"]
 
 # Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')  # Change for production
@@ -191,7 +193,7 @@ class PaymentResource(Resource):
         return {"message": "Payment successful"}, 201
 
 # ---- ADD ROUTES TO API ----
-api.add_resource(UserRegister, '/register')
+api.add_resource(UserRegister, '/signup')
 api.add_resource(UserLogin, '/login')
 api.add_resource(BusResource, '/buses', '/buses/<int:bus_id>')
 api.add_resource(RouteResource, '/routes')
@@ -204,143 +206,3 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
     app.run(debug=True)
-
-
-
-
-# from flask import Flask, make_response, jsonify, request, session, Blue print
-# from flask imort Flask, jsonify, request
-# from flask_restful import Api, Resource
-# from models import db, Seat, Booking
-# from flask_cors import CORS
-# from flask_migrate import Migrate
-
-
-
-# app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///wellness.db'
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.json.compact = False
-
-# migrate = Migrate(app, db)
-# db.init_app(app)
-# CORS(app)
-# api = Blueprint("api",__name__)
-
-
-# @api.route("/")
-# def index()"
-# return "Rapid Bus Transport Api"
-
-# @api.route("/seats/available", method =['GET'])
-# def get_available_seats():
-#     available_seats = Seat.query.filter_by(is_available="available").all()
-#     return jsonify([seat.to_dict() for seat in available_seats]), 200
-
-# @api.route('/bookingd', methods=['POST'])
-# def book_seat():
-#     """Allow customers to book a seat"""
-#     data = request.get_json()
-
-#     #Required fields
-#     customer_name = customer.name('customer_name')
-#     customer_id = data.get('customer_id')
-#     seat_id = data.get('seat_id')
-#     schedule_is = data.get('schedule_id')
-#     total_amount = data.get('total_amount')
-
-#     #validate user exists
-#     user = User.query.get(customer_id)
-#     if not user:
-#         returm jsonify({'erorr':'User not found'}), 404
-    
-#     #validate seat exist and is available
-#     seat= Seat.query.get(seat_id)
-#     if not seat:
-#         retun jsonify({"error":"Seat not found"}), 404
-#     if seat.is_available !="available":
-#         return jsonify ({"error":"Seat is already booked"})
-
-#     #validate schedule exists
-#     schedule= Schedule.qury.get(schedule_id)
-#     if not schedule:
-#         return jsonify({"error":"Schedule not found"})
-
-#     #creat new booking
-#     new_booking =Booking(
-#         customer_name= Customer_name,
-#         customer_id=Customer_id,
-#         seat_id= seat_id,
-#         schedule_id =schedule_id,
-#         total_amount= total_amount,
-#         payment_status="pending"
-#         booking_date=datetime.utcnow()
-#     )
-
-#     #update seat status
-#     seat.is_available = "booked"
-
-#     #save to database
-#     db.session.add(new_booking)
-#     db.session.commit()
-
-#     return jsonify({"message":"seat bookedsucessfully", "booking":new_booking.to_dict()}),201
-
-#     @api.route('/bookings/<int:user_id>', method=['GET'])
-#     def get_user_bookings(user_id):
-#         """retrieve all bookings made by a specific user"""
-#         user = User.query.get(user_id)
-#         if not user:
-#             return jsonify({"error":"User not found"}), 404
-
-#         bookings = Booking.query.filter_by(customer_id=user_id).all()
-#         return jsonify([booking.to_dict() for booking in bookings]), 200
-    
-#     @api.route('/admin/bookings', methods=['GET'])
-#     def get_all_bookings();
-#     """admin endpoints to get all the bookings"""
-#         bookings =  Booking.query.all()
-#      return jsonify([booking.to_dict(for booking in bookings)]),200
-
-#     @api.route("/admin/bookings/<booking_id>/cancle", methods=['PUT'])
-#     def cancel_booking(booking_id):
-#         """Admin cancels a booking"""
-#         booking = Booking.query.get(booking_id)
-#         if not booking:
-#             return jsonify({"error":"Booking not found"}),404
-    
-#     #free the seat
-#     seat = Seat.query.get(booking.seat_id)
-#     if seat:
-#         seat.isavailable= "available"
-
-
-#     #remove booking
-#     db.session.delete(booking)
-#     db.session.commit()
-
-#     return jsonify({"message":"Booking cancelled sucessfully"}),200
-
-# @api.route('/admin/bookings/<int:booking_id>/pay', methids=['PUT'])
-# def mart_bookig_paid(booking_id):
-#     booking =Booking.query.get(booking_id)
-#     if not booking
-#     return jsonify({"Error":"Booking not found"}),404
-
-#     booking.payment_status = paid
-#     db.session.commit()
-
-#     return jsonify({"message":"message marked as paid", "booking":booking.to_dict()}),200
-
-
-
-
-
-
-
-
-
-
-
-# if __name__ == "__main__":
-#     app.run(port=5000, debug=True)
