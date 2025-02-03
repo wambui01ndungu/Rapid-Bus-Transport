@@ -1,96 +1,136 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./BusSchedule.css";
 
 const BusSchedule = () => {
-  // Sample bus schedules with both 'date' and 'route'
-  const busSchedules = [
-    { id: 1, busName: "Bus 101", date: "2025-01-25", route: "Route A", departure: "10:00 AM", departureArea: "Nairobi CBD", destination: "Mombasa", availableSeats: 20, price: 500 },
-    { id: 2, busName: "Bus 202", date: "2025-01-25", route: "Route B", departure: "12:00 PM", departureArea: "Mombasa Town", destination: "Nakuru", availableSeats: 15, price: 700 },
-    { id: 3, busName: "Bus 303", date: "2025-01-26", route: "Route A", departure: "02:00 PM", departureArea: "Nakuru Town", destination: "Kisumu", availableSeats: 10, price: 600 },
-    { id: 4, busName: "Bus 404", date: "2025-01-27", route: "Route C", departure: "04:30 PM", departureArea: "Kisumu Bus Station", destination: "Nairobi", availableSeats: 25, price: 800 },
-    { id: 5, busName: "Bus 505", date: "2025-01-25", route: "Route C", departure: "06:00 PM", departureArea: "Mombasa CBD", destination: "Kisumu", availableSeats: 18, price: 650 },
-  ];
+    const [busSchedules, setBusSchedules] = useState([]);
+    const [selectedDate, setSelectedDate] = useState("");
+    const [selectedRoute, setSelectedRoute] = useState("");
+    const [loading, setLoading] = useState(true); // Loading state
+    const [error, setError] = useState(null); // Error state
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
 
-  // State for filters
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedRoute, setSelectedRoute] = useState("");
+    useEffect(() => {
+        const fetchSchedules = async () => {
+            setLoading(true);
+            setError(null); // Clear any previous errors
+            try {
+                const response = await axios.get(`${API_BASE_URL}/schedules`); // Your backend endpoint
+                setBusSchedules(response.data);
+            } catch (err) {
+                console.error("Error fetching schedules:", err);
+                setError("Error fetching schedules. Please try again later."); // Set error message
+            } finally {
+                setLoading(false);
+            }
+        };
 
-  // Handle filtering buses
-  const filteredBuses = busSchedules.filter(
-    (bus) =>
-      (selectedRoute === "" || bus.route === selectedRoute) && // Filter by route
-      (selectedDate === "" || bus.date === selectedDate) // Filter by date
-  );
+        fetchSchedules();
+    }, []); // Empty dependency array ensures this runs only once on mount
 
-  return (
-    <div className="bus-schedule-container">
-      <h2>View Available Schedules</h2>
+    const filteredBuses = busSchedules.filter(
+        (bus) =>
+            (selectedRoute === "" || bus.route === selectedRoute) &&
+            (selectedDate === "" || bus.date === selectedDate)
+    );
 
-      {/* Filters Section */}
-      <div className="filters">
-        <label>Select Travel Date:</label>
-        <input
-          type="date"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-        />
+    // Dynamically generate route options
+    const availableRoutes = [...new Set(busSchedules.map((bus) => bus.route))];
 
-        <label>Select Route:</label>
-        <select
-          value={selectedRoute}
-          onChange={(e) => setSelectedRoute(e.target.value)}
-        >
-          <option value="">All Routes</option>
-          <option value="Route A">Route A</option>
-          <option value="Route B">Route B</option>
-          <option value="Route C">Route C</option>
-        </select>
-      </div>
+    const navigate = useNavigate(); // Initialize useNavigate
 
-      {/* Bus Schedule Table */}
-      <table className="bus-schedule-table">
-        <thead>
-          <tr>
-            <th>Bus Name</th>
-            <th>Date</th>
-            <th>Route</th>
-            <th>Departure Time</th>
-            <th>Departure Area</th>
-            <th>Destination</th>
-            <th>Available Seats</th>
-            <th>Price (KES)</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredBuses.length > 0 ? (
-            filteredBuses.map((bus) => (
-              <tr key={bus.id}>
-                <td>{bus.busName}</td>
-                <td>{bus.date}</td>
-                <td>{bus.route}</td> {/* Display the Route */}
-                <td>{bus.departure}</td>
-                <td>{bus.departureArea}</td>
-                <td>{bus.destination}</td>
-                <td>{bus.availableSeats}</td>
-                <td>{bus.price}</td>
-                <td>
-                  <button className="book-btn" onClick={() => alert(`Booking ${bus.busName}`)}>
-                    Book Now
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="9">No buses available for the selected date and route.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
-  );
+    const handleBookNow = (bus) => {
+        const token = localStorage.getItem("token");
+
+        if (token) { // Check if token exists (not just if it's "true")
+            alert(`Booking ${bus.bus_name}`); // Or your actual booking logic
+            // ... your booking logic here (API call, etc.) ...
+        } else {
+            // User is not logged in, redirect to login/signup
+            alert("You must be logged in to book a bus.");
+            navigate("/login"); // Or navigate("/signup")
+        }
+    };
+
+    return (
+        <div className="bus-schedule-container">
+            <h2>View Available Schedules</h2>
+
+            <div className="filters">
+                <label>Select Travel Date:</label>
+                <input
+                    type="date"
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                />
+
+                <label>Select Route:</label>
+                <select
+                    value={selectedRoute}
+                    onChange={(e) => setSelectedRoute(e.target.value)}
+                >
+                    <option value="">All Routes</option>
+                    {availableRoutes.map((route) => (
+                        <option key={route} value={route}>
+                            {route}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            {loading && <div>Loading bus schedules...</div>}
+            {error && <div style={{ color: "red" }}>{error}</div>} {/* Display error message */}
+
+            {!loading && !error && ( // Only render the table if not loading and no error
+                <table className="bus-schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Bus Name</th> {/* Header for bus_name */}
+                            <th>Date</th> {/* Header for date */}
+                            <th>Route</th> {/* Header for route */}
+                            <th>Departure Time</th> {/* Header for departure */}
+                            <th>Departure Area</th> {/* Header for departure_area */}
+                            <th>Destination</th> {/* Header for destination */}
+                            <th>Available Seats</th> {/* Header for available_seats */}
+                            <th>Price (KES)</th> {/* Header for price */}
+                            <th>Action</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredBuses.length > 0 ? (
+                            filteredBuses.map((bus) => (
+                                <tr key={bus.id}>
+                                    <td>{bus.bus_name}</td> {/* Access data from backend */}
+                                    <td>{bus.date}</td>
+                                    <td>{bus.route}</td>
+                                    <td>{bus.departure}</td>
+                                    <td>{bus.departure_area}</td>
+                                    <td>{bus.destination}</td>
+                                    <td>{bus.available_seats}</td>
+                                    <td>{bus.price}</td>
+                                    <td>
+                                        <button
+                                            className="book-btn"
+                                            onClick={() => handleBookNow(bus)}
+                                        >
+                                            Book Now
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="9">
+                                    No buses available for the selected date and route.
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            )}
+        </div>
+    );
 };
 
 export default BusSchedule;
-
