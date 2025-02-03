@@ -8,8 +8,8 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from datetime import datetime
 from models import db, User, Bus, Schedule, Seat, Booking, Payment
 
-app = Flask(_name_)
-CORS(app, origins=["https://rapid-bus-transport-2.vercel.app"])
+app = Flask(__name__)
+CORS(app, origins=["https://rapid-bus-transport.vercel.app/"])
 
 # Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')  # Change for production
@@ -211,7 +211,7 @@ api.add_resource(SeatResource, '/seats/<int:schedule_id>')
 api.add_resource(BookingResource, '/bookings')
 api.add_resource(PaymentResource, '/payments')
 
-if _name_ == '_main_':
+if __name__== '__main__':
     with app.app_context():
         db.create_all()
     app.run(debug=True)
