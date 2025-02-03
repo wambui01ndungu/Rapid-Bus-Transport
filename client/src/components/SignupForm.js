@@ -32,7 +32,7 @@ const SignupForm = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(${API_BASE_URL}/signup, {
+      const response = await fetch(`${API_BASE_URL}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -80,7 +80,7 @@ const SignupForm = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className={w-full p-3 bg-gray-700 rounded-lg text-white ${errors.name ? "border-2 border-red-500" : ""}}
+              className={`w-full p-3 bg-gray-700 rounded-lg text-white ${errors.name ? "border-2 border-red-500" : ""}`}
             />
             {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
           </div>
@@ -92,7 +92,7 @@ const SignupForm = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={w-full p-3 bg-gray-700 rounded-lg text-white ${errors.email ? "border-2 border-red-500" : ""}}
+              className={`w-full p-3 bg-gray-700 rounded-lg text-white ${errors.email ? "border-2 border-red-500" : ""}`}
             />
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
@@ -104,7 +104,7 @@ const SignupForm = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className={w-full p-3 bg-gray-700 rounded-lg text-white ${errors.password ? "border-2 border-red-500" : ""}}
+              className={`w-full p-3 bg-gray-700 rounded-lg text-white ${errors.password ? "border-2 border-red-500" : ""}`}
             />
             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
           </div>
@@ -116,7 +116,7 @@ const SignupForm = () => {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className={w-full p-3 bg-gray-700 rounded-lg text-white ${errors.confirmPassword ? "border-2 border-red-500" : ""}}
+              className={`w-full p-3 bg-gray-700 rounded-lg text-white ${errors.confirmPassword ? "border-2 border-red-500" : ""}`}
             />
             {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
           </div>
