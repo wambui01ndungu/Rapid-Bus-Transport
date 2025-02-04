@@ -22,19 +22,29 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
-      
-      
 
-      if (response.ok) {
+     const data = await response.json();
+     
+     if (!response.ok) {
+      throw new Error(data.message || "Login failed");
+    } 
+
+    
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user_role", data.user.role);
+        localStorage.setItem("user_role", data.user_role);
         localStorage.setItem("username", data.user.name); 
-        navigate("/");
-      } else {
-        setError(data.message || "Invalid credentials");
+
+
+      
+      if (data.user_role === "driver"){
+        navigate ("/driver_dahsboard");
       }
-    } catch (error) {
+      else{
+        navigate ("/dashboard");
+      }
+      setError(data.message || "Invalid credentials");
+      }
+    catch (error) {
       setError("Server error. Please try again.");
     }
   };
