@@ -8,6 +8,7 @@ const SignupForm = () => {
     password: "",
     confirmPassword: "",
     role: "Customer", // Default role
+  
   });
 
   const [errors, setErrors] = useState({});
@@ -47,19 +48,28 @@ const SignupForm = () => {
 
       if (response.ok) {
         localStorage.setItem("token", data.token); // Store JWT
+        localStorage.setItem("username", data.username);
         localStorage.setItem("user_role", data.role); // Store user role
         alert("Account created successfully!");
-        navigate("/dashboard"); // Redirect after signup
-      } else {
-        setErrors({ apiError: data.message || "Signup failed" });
-      }
-    } catch (error) {
-      setErrors({ apiError: "Server error. Please try again later." });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
+        if (formData.role === "driver"){
+          navigator("/driver_dashboard");
+        } 
+        else{
+          navigate("/dashboard");
+        }
+      } else{
+          setErrors({ apiError: data.message || "Signup failed" });
+      }   
+     } catch (error) {
+           setErrors({ apiError: "Server error. Please try again later." });
+         } 
+        finally {
+           setIsLoading(false);
+        }
+      };
+    
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
