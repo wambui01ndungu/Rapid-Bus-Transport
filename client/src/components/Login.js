@@ -33,16 +33,9 @@ function Login() {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user_role", data.user_role);
         localStorage.setItem("username", data.user.name); 
-
-
-      
-      if (data.user_role === "driver"){
-        navigate ("/driver_dahsboard");
-      }
-      else{
-        navigate ("/dashboard");
-      }
-      setError(data.message || "Invalid credentials");
+        navigate("/");
+      } else {
+        setError(data.message || "Invalid credentials");
       }
     catch (error) {
       setError("Server error. Please try again.");

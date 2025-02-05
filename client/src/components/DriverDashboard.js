@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaHome, FaBus, FaUserCircle, FaArrowLeft, FaEnvelope } from "react-icons/fa";
 import "./DriverDashboard.css";
 
-function DriversDashboard() {
+function DriverDashboard() {
   // Driver's personal details (initial values)
   const [driverDetails, setDriverDetails] = useState({
     firstName: "John",
@@ -332,4 +332,4 @@ function DriversDashboard() {
   );
 }
 
-export default DriversDashboard;
+export default DriverDashboard;
