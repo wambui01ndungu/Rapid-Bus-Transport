@@ -37,7 +37,7 @@ function Login() {
         if (data.user.role === "driver"){
           navigate("/driver-dashboard");
         } else {
-          navigate('/dashboard')
+          navigate('/')
         }
       } catch(error) {
         setError(error.message || "Server error. Please try again.")
