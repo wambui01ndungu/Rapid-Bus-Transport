@@ -10,6 +10,7 @@ import DriverDashboard from "./components/DriverDashboard";
 import BusSchedule from "./components/BusSchedule";
 import UserDashboard from "./components/UserDashboard";
 import CompanyAbout from "./components/CompanyAbout";
+import { useState } from "react";
 
 function App() {
   const navigate = useNavigate();
@@ -40,16 +41,32 @@ function App() {
       <header>
         <nav>
           <ul className="nav-left">
-          <img src="/path-to-your-logo.png" alt="Logo" className="logo" />
+          <img src="/logo.jpg" alt="Logo" className="logo" />
       
             <li><Link to="/">Home</Link></li>
             <li><Link to="/schedules"> Bus Schedule</Link></li>
             {token && <li><Link to="/bookings">My Bookings</Link></li>}
             <li>
-              <button onClick={() => openModal("About Us", `Rapid Bus Transport is committed to providing safe, reliable, and affordable transportation for students and daily commuters. Our fleet is equipped with modern amenities, ensuring a comfortable journey. Our mission is to revolutionize public transport by integrating technology, enhancing user experience, and promoting efficiency.`)} className="nav-link">About Us</button>
+              <button onClick={() => openModal("About Us", <>`Rapid Bus Transport is committed to providing safe, reliable, and affordable transportation for students and daily commuters. <dr/>Our fleet is equipped with modern amenities, ensuring a comfortable journey.<br/> Our mission is to revolutionize public transport by integrating technology, enhancing user experience, and promoting efficiency.`</>)} className="nav-link">About Us</button>
             </li>
             <li>
-              <button onClick={() => openModal("Contact Us", `📍 Headquarters: Nairobi, Kenya\n📞 Phone: +254 700 123 456\n📧 Email: support@rapidbustransport.com\n🌍 Website: www.rapidbustransport.com\n\nOur support team is available 24/7 to assist you.`)} className="nav-link">Contact Us</button>
+            <button 
+  onClick={() => openModal(
+    "Contact Us", 
+    <>
+      📍 Headquarters: Nairobi, Kenya <br />
+      📞 Phone: +254 700 123 456 <br />
+      📧 Email: support@rapidbustransport.com <br />
+      🌍 Website: www.rapidbustransport.com <br /><br />
+      Our support team is available 24/7 to assist you.
+    </>
+  )} 
+  className="nav-link"
+>
+  Contact Us
+</button>
+
+   
             </li>
           </ul>
 

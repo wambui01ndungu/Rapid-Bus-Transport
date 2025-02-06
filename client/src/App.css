@@ -267,48 +267,99 @@ nav ul li {
 .user-icon {
   margin-right: 5px;
 }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.logo {
+  max-width: 90px;
+  max-height: 90px;
+}
+.nav-link {
+  background: none;
+  border: none;
+  color: white !important; /* Ensures text stays white */
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 10px;
+  text-decoration: none; /* Prevents underline */
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  color: #f0f0f0; /* Slightly lighter white on hover */
+}
+
+
+
 .company-about-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 1000;
 }
 
 .company-about-content {
   background: white;
   padding: 20px;
-  border-radius: 10px;
   width: 400px;
+  max-width: 90%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
   position: relative;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.company-about-content h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.company-about-content p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.5;
+  white-space: pre-line; /* Ensures line breaks work */
 }
 
 .close-button {
   position: absolute;
   top: 10px;
-  right: 15px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background: none; 
   border: none;
-  background: transparent;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
+  color: #812f2f;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.nav-link {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 5px 10px;
+.close-button:hover {
+  color: red;
 }
 
-.nav-link:hover {
-  text-decoration: underline;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

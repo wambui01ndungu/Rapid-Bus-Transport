@@ -1,13 +1,17 @@
 import React from "react";
-import "./CompanyAbout.css"; // Ensure you create this CSS file for styling
+
 
 const CompanyAbout = ({ title, content, onClose }) => {
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains("company-about-overlay")) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="company-about-overlay">
+    <div className="company-about-overlay" onClick={handleOverlayClick}>
       <div className="company-about-content">
-        <button className="close-button" onClick={onClose}>
-          &times;
-        </button>
+        <button className="close-button" onClick={onClose}>&times;</button>
         <h2>{title}</h2>
         <p>{content}</p>
       </div>
