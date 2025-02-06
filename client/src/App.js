@@ -9,12 +9,24 @@ import Login from "./components/Login";
 import DriverDashboard from "./components/DriverDashboard";
 import BusSchedule from "./components/BusSchedule";
 import UserDashboard from "./components/UserDashboard";
+import CompanyAbout from "./components/CompanyAbout";
 
 function App() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username"); // Retrieve username
   const userRole = locaStorage.getItem("user_role");
+
+
+  const [modalContent, setModalContent] = useState(null);
+
+  const openModal = (title, content) => {
+    setModalContent({ title, content });
+  };
+
+  const closeModal = () => {
+    setModalContent(null);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -33,6 +45,12 @@ function App() {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/schedules"> Bus Schedule</Link></li>
             {token && <li><Link to="/bookings">My Bookings</Link></li>}
+            <li>
+              <button onClick={() => openModal("About Us", `Rapid Bus Transport is committed to providing safe, reliable, and affordable transportation for students and daily commuters. Our fleet is equipped with modern amenities, ensuring a comfortable journey. Our mission is to revolutionize public transport by integrating technology, enhancing user experience, and promoting efficiency.`)} className="nav-link">About Us</button>
+            </li>
+            <li>
+              <button onClick={() => openModal("Contact Us", `📍 Headquarters: Nairobi, Kenya\n📞 Phone: +254 700 123 456\n📧 Email: support@rapidbustransport.com\n🌍 Website: www.rapidbustransport.com\n\nOur support team is available 24/7 to assist you.`)} className="nav-link">Contact Us</button>
+            </li>
           </ul>
 
           {token && (
@@ -68,6 +86,8 @@ function App() {
       <footer>
         <p>&copy; 2025 Bus Management System. All rights reserved.</p>
       </footer>
+      {modalContent && <CompanyAbout title={modalContent.title} content={modalContent.content} onClose={closeModal} />}
+    
     </div>
   );
 }
