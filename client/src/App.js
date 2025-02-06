@@ -14,7 +14,7 @@ function App() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username"); // Retrieve username
-  const userRole = locaStorage.getItem("user_role");
+  const userRole = localStorage.getItem("user_role");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
