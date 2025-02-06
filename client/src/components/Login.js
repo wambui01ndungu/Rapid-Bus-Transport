@@ -22,22 +22,29 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
-      
-      
 
-      if (response.ok) {
+     const data = await response.json();
+     
+     if (!response.ok) {
+      throw new Error(data.message || "Login failed");
+    } 
+
+    
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user_role", data.user.role);
-        localStorage.setItem("username", data.user.name); 
-        navigate("/");
-      } else {
-        setError(data.message || "Invalid credentials");
+        localStorage.setItem("user_role", data.user_role);
+        localStorage.setItem("username", data.user?.name || "User"); 
+        
+        if (data.user.role === "driver"){
+          navigate("/driver-dashboard");
+        } else {
+          navigate('/dashboard')
+        }
+      } catch(error) {
+        setError(error.message || "Server error. Please try again.")
       }
-    } catch (error) {
-      setError("Server error. Please try again.");
-    }
-  };
+  
+      };
+    
 
   return (
     <div className="login-container">

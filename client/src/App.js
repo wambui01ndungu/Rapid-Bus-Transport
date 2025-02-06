@@ -14,6 +14,7 @@ function App() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username"); // Retrieve username
+  const userRole = locaStorage.getItem("user_role");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -27,6 +28,8 @@ function App() {
       <header>
         <nav>
           <ul className="nav-left">
+          <img src="/path-to-your-logo.png" alt="Logo" className="logo" />
+      
             <li><Link to="/">Home</Link></li>
             <li><Link to="/schedules"> Bus Schedule</Link></li>
             {token && <li><Link to="/bookings">My Bookings</Link></li>}
