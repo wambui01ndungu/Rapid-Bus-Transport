@@ -1,6 +1,7 @@
 import { Database } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -51,8 +52,8 @@ const SignupForm = () => {
         localStorage.setItem("token", data.token); // Store JWT
         localStorage.setItem("username", data.username);
         localStorage.setItem("user_role", data.role); // Store user role
-        alert("Account created successfully!");
-        navigate("/dashboard"); // Redirect after signup
+        alert(data.message);
+        navigate("/"); // Redirect after signup
       } else {
         setErrors({ apiError: data.message || "Signup failed" });
       }
@@ -148,7 +149,7 @@ const SignupForm = () => {
           </button>
 
           <p className="text-gray-400 text-center mt-4">
-            Already have an account? <span className="text-amber-600 hover:underline cursor-pointer">Login here</span>
+              Already have an account? <Link to="/login" className="text-amber-600 hover:underline cursor-pointer">Login here</Link>
           </p>
         </form>
       </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Login.css";
+import "./Login.css"; // Make sure this CSS file exists
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -16,35 +16,35 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${API_BASE_URL}/login`, {  // ✅ Fixed backticks
+      const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
+      const data = await response.json();
 
-     const data = await response.json();
-     
-     if (!response.ok) {
-      throw new Error(data.message || "Login failed");
-    } 
-
-    
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user_role", data.user_role);
-        localStorage.setItem("username", data.user?.name || "User"); 
-        
-        if (data.user.role === "driver"){
-          navigate("/driver-dashboard");
-        } else {
-          navigate('/')
-        }
-      } catch(error) {
-        setError(error.message || "Server error. Please try again.")
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
       }
-  
-      };
-    
+
+      // **Correctly access the data from the response**
+      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("user_role", data.role);
+      localStorage.setItem("username", data.name || "User");
+
+      if (data.role === "admin") {
+        navigate("/dashboard");
+      } else if (data.role.toLowerCase() === "driver") {
+        navigate("/driver-dashboard");
+      } else {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Login error:", error); // Log the error for debugging
+      setError(error.message || "Server error. Please try again.");
+    }
+  };
 
   return (
     <div className="login-container">
@@ -77,12 +77,18 @@ function Login() {
             />
           </div>
 
-          <button type="submit" className="login-button">Login</button>
+          <button type="submit" className="login-button">
+            Login
+          </button>
         </form>
 
         <div className="login-footer">
-          <p><Link to="/forgot-password">Forgot password?</Link></p>
-          <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+          <p>
+            <Link to="/forgot-password">Forgot password?</Link>
+          </p>
+          <p>
+            Don't have an account? <Link to="/signup">Sign Up</Link>
+          </p>
         </div>
       </div>
     </div>

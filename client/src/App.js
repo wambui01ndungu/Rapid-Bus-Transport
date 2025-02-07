@@ -11,6 +11,7 @@ import BusSchedule from "./components/BusSchedule";
 import UserDashboard from "./components/UserDashboard";
 import CompanyAbout from "./components/CompanyAbout";
 import { useState } from "react";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ function App() {
             <li><Link to="/schedules"> Bus Schedule</Link></li>
             {token && <li><Link to="/bookings">My Bookings</Link></li>}
             <li>
-              <button onClick={() => openModal("About Us", <>`Rapid Bus Transport is committed to providing safe, reliable, and affordable transportation for students and daily commuters. <dr/>Our fleet is equipped with modern amenities, ensuring a comfortable journey.<br/> Our mission is to revolutionize public transport by integrating technology, enhancing user experience, and promoting efficiency.`</>)} className="nav-link">About Us</button>
+              <button onClick={() => openModal("About Us", <>`Safiri Link is committed to providing safe, reliable, and affordable transportation for students and daily commuters. <dr/>Our fleet is equipped with modern amenities, ensuring a comfortable journey.<br/> Our mission is to revolutionize public transport by integrating technology, enhancing user experience, and promoting efficiency.`</>)} className="nav-link">About Us</button>
             </li>
             <li>
             <button 
@@ -56,8 +57,8 @@ function App() {
     <>
       📍 Headquarters: Nairobi, Kenya <br />
       📞 Phone: +254 700 123 456 <br />
-      📧 Email: support@rapidbustransport.com <br />
-      🌍 Website: www.rapidbustransport.com <br /><br />
+      📧 Email: support@safirilink.com <br />
+      🌍 Website: www.safirilink.com <br /><br />
       Our support team is available 24/7 to assist you.
     </>
   )} 
@@ -95,8 +96,22 @@ function App() {
           <Route path="/bookings" element={<UserDashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignupForm />} />
-          <Route path="/driver-dashboard" element={<DriverDashboard />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/driver-dashboard"
+            element={
+              <ProtectedRoute requiredRole="driver">
+                <DriverDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>  
 
