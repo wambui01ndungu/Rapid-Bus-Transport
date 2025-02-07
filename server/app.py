@@ -36,19 +36,39 @@ class UserRegister(Resource):
         # Check if user already exists
         if User.query.filter_by(email=data['email']).first():
             return {"message": "User already exists"}, 400
+        
+        admin_exists = User.query.filter_by(role='admin').first()
 
-        # Create new user with hashed password
-        user = User(
-            name=data['name'],
-            email=data['email'],
-            role=data['role'],
-            contact_info=data.get('contact_info', '')
-        )
+        if not admin_exists:
+            user = User(
+                name=data['name'],
+                email=data['email'],
+                role='admin', # Overriding the signup role selection
+                contact_info=data.get('contact_info', '')
+            )
+            message = "User registered successfully. Because you are the first user, you have been assigned the administrator role."
+        else:
+        # honor signup selection if not the first user
+            user = User(
+                name=data['name'],
+                email=data['email'],
+                role=data['role'], # use the signup selection for other user registrations
+                contact_info=data.get('contact_info', '')
+            )
+            message = "Account created successfully"
+
         user.set_password(data['password'])  # Hash password before saving
 
         db.session.add(user)
         db.session.commit()
-        return {"message": "User registered successfully"}, 201
+
+        access_token = create_access_token(identity=user.id, additional_claims={'role': user.role})
+        return {
+            "message": "User registered successfully",
+            "token": access_token,
+            "username": user.name,  # Or use a dedicated 'username' field if you have one
+            "role": user.role
+            }, 201
 
 
 class UserLogin(Resource):
@@ -58,15 +78,13 @@ class UserLogin(Resource):
 
         # Check if user exists and password is correct
         if user and user.check_password(data['password']):
-            access_token = create_access_token(identity=user.id)
+            access_token = create_access_token(identity=user.id, additional_claims={'role': user.role})
             return {
                 "access_token": access_token,
-                "user": {
-                    "id": user.id,
-                    "name": user.name,
-                    "email": user.email,
-                    "role": user.role
-                }
+                "id": user.id,
+                "name": user.name,
+                "email": user.email,
+                "role": user.role    
             }, 200
         
         return {"message": "Invalid credentials"}, 401
