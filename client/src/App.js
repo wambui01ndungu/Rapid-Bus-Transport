@@ -10,7 +10,7 @@ import DriverDashboard from "./components/DriverDashboard";
 import BusSchedule from "./components/BusSchedule";
 import UserDashboard from "./components/UserDashboard";
 import CompanyAbout from "./components/CompanyAbout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
