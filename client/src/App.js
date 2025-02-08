@@ -45,8 +45,8 @@ function App() {
           <img src="/logo.jpg" alt="Logo" className="logo" />
       
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/schedules"> Bus Schedule</Link></li>
-            {token && <li><Link to="/bookings">My Bookings</Link></li>}
+            <li><Link to="/schedules"> Bus Schedules</Link></li>
+            <li><Link to="/bookings">Bookings</Link></li>
             <li>
               <button onClick={() => openModal("About Us", <>`Safiri Link is committed to providing safe, reliable, and affordable transportation for students and daily commuters. <dr/>Our fleet is equipped with modern amenities, ensuring a comfortable journey.<br/> Our mission is to revolutionize public transport by integrating technology, enhancing user experience, and promoting efficiency.`</>)} className="nav-link">About Us</button>
             </li>
