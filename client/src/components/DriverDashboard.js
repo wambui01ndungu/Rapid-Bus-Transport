@@ -22,10 +22,16 @@ function DriverDashboard() {
   ]);
   const [newTrip, setNewTrip] = useState({ date: "", departure: "", arrival: "" });
 
+  // State for update schedule
+  const [updateSchedules, setUpdateSchedules] = useState([
+    { id: 1, date: "15/07/2023", route: "Mombasa - Nairobi", departureTime: "07:02 pm", departureArea: "Mombasa", destination: "Nairobi", availableSeats: "30", price: "3000" },
+  ]);
+  const [newUpdateSchedule, setNewUpdateSchedule] = useState({ date: "", route: "", departureTime: "", departureArea: "", destination: "", availableSeats: "", price: "" });
+
   // State for messages
   const [messages, setMessages] = useState([
     { id: 1, sender: "Admin", text: "Your next trip is scheduled for tomorrow." },
-    { id: 2, sender: "HR", text: "Reminder: Please submit your trip reports." }
+    { id: 2, sender: "HR", text: "Reminder: Please submit your trip reports." },
   ]);
   const [newMessage, setNewMessage] = useState("");
 
@@ -39,16 +45,12 @@ function DriverDashboard() {
   // Handle changing driver details
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
-    setDriverDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
+    setDriverDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
 
-  // Handle submitting the updated profile
   const handleProfileSubmit = () => {
     alert("Profile updated successfully!");
-    setActiveTab("home"); // After submitting, go back to the home page
+    setActiveTab("home"); // Go back to the home page after submitting
   };
 
   // Handle adding new trip
@@ -66,6 +68,20 @@ function DriverDashboard() {
     }
   };
 
+  // Handle adding a new bus schedule
+  const handleUpdateScheduleChange = (e) => {
+    const { name, value } = e.target;
+    setNewUpdateSchedule({ ...newUpdateSchedule, [name]: value });
+  };
+
+  const handleAddUpdateSchedule = () => {
+    if (newUpdateSchedule.date && newUpdateSchedule.route && newUpdateSchedule.departureTime && newUpdateSchedule.departureArea && newUpdateSchedule.destination && newUpdateSchedule.availableSeats && newUpdateSchedule.price) {
+      setUpdateSchedules([...updateSchedules, { id: updateSchedules.length + 1, ...newUpdateSchedule }]);
+      setNewUpdateSchedule({ date: "", route: "", departureTime: "", departureArea: "", destination: "", availableSeats: "", price: "" });
+    } else {
+      alert("Please fill all fields before adding a schedule.");
+    }
+  };
   // Handle message sending
   const handleSendMessage = () => {
     if (newMessage.trim() !== "") {
@@ -76,11 +92,7 @@ function DriverDashboard() {
     }
   };
 
-  // Handle adding new duty status
-  const handleDutyStatusChange = (e) => {
-    const { name, value } = e.target;
-    setNewDutyStatus({ ...newDutyStatus, [name]: value });
-  };
+ 
 
   const handleAddDutyStatus = () => {
     if (newDutyStatus.date && newDutyStatus.status) {
@@ -96,7 +108,148 @@ function DriverDashboard() {
     setActiveTab(tab);
   };
 
-  // Render Messages section
+  // Render Home section
+  const renderHomeContent = () => (
+    <div>
+      <h2>Welcome to the Driver Dashboard</h2>
+      <div className="driver-details">
+        <h3>Personal Details</h3>
+        <p><strong>Name:</strong> {driverDetails.firstName} {driverDetails.lastName}</p>
+        <p><strong>License:</strong> {driverDetails.license}</p>
+        <p><strong>Email:</strong> {driverDetails.email}</p>
+        <p><strong>Phone:</strong> {driverDetails.phone}</p>
+      </div>
+      {/* Action Buttons */}
+      <div className="drivers-action-buttons">
+        <button onClick={() => alert("Requesting Route Cancellation")}>Request Route Cancellation</button>
+        <button onClick={() => alert("Contacting Admin")}>Contact Admin</button>
+      </div>
+      <button onClick={() => handleTabClick("updateProfile")}>Update Profile</button>
+    </div>
+  );
+
+  // Render Update Profile section
+  const renderUpdateProfile = () => (
+    <div>
+      <h3>Update Your Profile</h3>
+      <div className="update-profile-section">
+        <input type="text" name="firstName" value={driverDetails.firstName} onChange={handleProfileChange} placeholder="Enter First Name" />
+        <input type="text" name="lastName" value={driverDetails.lastName} onChange={handleProfileChange} placeholder="Enter Last Name" />
+        <input type="text" name="license" value={driverDetails.license} onChange={handleProfileChange} placeholder="Enter License Number" />
+        <input type="email" name="email" value={driverDetails.email} onChange={handleProfileChange} placeholder="Enter Email" />
+        <input type="text" name="phone" value={driverDetails.phone} onChange={handleProfileChange} placeholder="Enter Phone Number" />
+        <button onClick={handleProfileSubmit}>Submit</button>
+      </div>
+    </div>
+  );
+  const renderShowTrips = () => (
+    <div className="trips-container">
+      <h3>Trips Record</h3>
+      
+      <div className="trips-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Date</th>
+              <th>Departure</th>
+              <th>Arrival</th>
+            </tr>
+          </thead>
+          <tbody>
+            {trips.map((trip) => (
+              <tr key={trip.id}>
+                <td>{trip.id}</td>
+                <td>{trip.date}</td>
+                <td>{trip.departure}</td>
+                <td>{trip.arrival}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+  
+      <div className="add-trip-form">
+        <h4>Add a New Trip</h4>
+        <div className="input-fields">
+          <input
+            type="text"
+            name="departure"
+            value={newTrip.departure}
+            onChange={handleTripChange}
+            placeholder="Enter Departure"
+          />
+          <input
+            type="text"
+            name="arrival"
+            value={newTrip.arrival}
+            onChange={handleTripChange}
+            placeholder="Enter Arrival"
+          />
+          <input
+            type="date"
+            name="date"
+            value={newTrip.date}
+            onChange={handleTripChange}
+          />
+        </div>
+        <button className="add-trip-button" onClick={handleAddTrip}>
+          Add New Trip
+        </button>
+      </div>
+    </div>
+  );
+  const renderDutyStatus = () => (
+    <div className="duty-status-container">
+      <h3 className="duty-status-title">Duty Status</h3>
+      <div className="table-container">
+        <table className="duty-status-table">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dutyStatus.map((status) => (
+              <tr key={status.id}>
+                <td>{status.id}</td>
+                <td>{status.date}</td>
+                <td className={status.status === "On Duty" ? "on-duty" : "off-duty"}>
+                  {status.status}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+  
+      <h3 className="add-duty-title">Add Duty Status</h3>
+      <div className="add-duty-container">
+        <input
+          type="date"
+          name="date"
+          value={newDutyStatus.date}
+          onChange={handleDutyStatusChange}
+          className="duty-input"
+        />
+        <select
+          name="status"
+          value={newDutyStatus.status}
+          onChange={handleDutyStatusChange}
+          className="duty-select"
+        >
+          <option value="">Select Status</option>
+          <option value="On Duty">On Duty</option>
+          <option value="Off Duty">Off Duty</option>
+        </select>
+        <button onClick={handleAddDutyStatus} className="add-duty-btn">
+          Add Duty Status
+        </button>
+      </div>
+    </div>
+  );
   const renderMessage = () => (
     <div>
       <h3>Messages</h3>
@@ -118,215 +271,78 @@ function DriverDashboard() {
       </div>
     </div>
   );
+  
 
-  // Render Home section
-  const renderHomeContent = () => (
+
+
+  
+
+  
+
+  const renderUpdateSchedules = () => (
     <div>
-      <h2>Welcome to the Driver Dashboard</h2>
-      <div className="driver-details">
-        <h3>Personal Details</h3>
-        <p><strong>Name:</strong> {driverDetails.firstName} {driverDetails.lastName}</p>
-        <p><strong>License:</strong> {driverDetails.license}</p>
-        <p><strong>Email:</strong> {driverDetails.email}</p>
-        <p><strong>Phone:</strong> {driverDetails.phone}</p>
-      </div>
-      
-      {/* Action Buttons */}
-      <div className="drivers-action-buttons">
-        <button className="cancel-route-btn" onClick={() => alert("Requesting Route Cancellation")}>
-          Request Route Cancellation
-        </button>
-        <button className="contact-admin-btn" onClick={() => alert("Contacting Admin")}>
-          Contact Admin
-        </button>
-      </div>
-
-      <button onClick={() => handleTabClick("updateProfile")}>Update Profile</button>
-    </div>
-  );
-
-  const renderDutyStatus = () => (
-    <div>
-      <h3>Duty Status</h3>
-      <table className="drivers-table">
+      <h3>Update Bus Schedules</h3>
+      <table>
         <thead>
           <tr>
             <th>No</th>
             <th>Date</th>
-            <th>Status</th>
+            <th>Route</th>
+            <th>Departure Time</th>
+            <th>Departure Area</th>
+            <th>Destination</th>
+            <th>Available Seats</th>
+            <th>Price(KES)</th>
           </tr>
         </thead>
         <tbody>
-          {dutyStatus.map((status) => (
-            <tr key={status.id}>
-              <td>{status.id}</td>
-              <td>{status.date}</td>
-              <td>{status.status}</td>
+          {updateSchedules.map((schedule) => (
+            <tr key={schedule.id}>
+              <td>{schedule.id}</td>
+              <td>{schedule.date}</td>
+              <td>{schedule.route}</td>
+              <td>{schedule.departureTime}</td>
+              <td>{schedule.departureArea}</td>
+              <td>{schedule.destination}</td>
+              <td>{schedule.availableSeats}</td>
+              <td>{schedule.price}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <h3>Add a New Duty Status</h3>
-      <div className="add-duty-status-section">
-        <input
-          type="text"
-          name="date"
-          value={newDutyStatus.date}
-          onChange={handleDutyStatusChange}
-          placeholder="Enter Date"
-        />
-        <select
-          name="status"
-          value={newDutyStatus.status}
-          onChange={handleDutyStatusChange}
-        >
-          <option value="">Select Status</option>
-          <option value="On Duty">On Duty</option>
-          <option value="Off Duty">Off Duty</option>
-        </select>
-        <button onClick={handleAddDutyStatus}>Add Duty Status</button>
-      </div>
-    </div>
-  );
-
-  const renderUpdateProfile = () => (
-    <div>
-      <h3>Update Your Profile</h3>
-      <div className="update-profile-section">
-        <input
-          type="text"
-          name="firstName"
-          value={driverDetails.firstName}
-          onChange={handleProfileChange}
-          placeholder="Enter First Name"
-        />
-        <input
-          type="text"
-          name="lastName"
-          value={driverDetails.lastName}
-          onChange={handleProfileChange}
-          placeholder="Enter Last Name"
-        />
-        <input
-          type="text"
-          name="license"
-          value={driverDetails.license}
-          onChange={handleProfileChange}
-          placeholder="Enter License Number"
-        />
-        <input
-          type="email"
-          name="email"
-          value={driverDetails.email}
-          onChange={handleProfileChange}
-          placeholder="Enter Email"
-        />
-        <input
-          type="text"
-          name="phone"
-          value={driverDetails.phone}
-          onChange={handleProfileChange}
-          placeholder="Enter Phone Number"
-        />
-        <button onClick={handleProfileSubmit}>Submit</button>
-      </div>
-    </div>
-  );
-
-  const renderShowTrips = () => (
-    <div>
-      <h3>Trips Record</h3>
-      <table className="drivers-table">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Date</th>
-            <th>Departure</th>
-            <th>Arrival</th>
-          </tr>
-        </thead>
-        <tbody>
-          {trips.map((trip) => (
-            <tr key={trip.id}>
-              <td>{trip.id}</td>
-              <td>{trip.date}</td>
-              <td>{trip.departure}</td>
-              <td>{trip.arrival}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <h3>Add a New Trip</h3>
-      <div className="add-trip-section">
-        <input
-          type="text"
-          name="departure"
-          value={newTrip.departure}
-          onChange={handleTripChange}
-          placeholder="Enter Departure"
-        />
-        <input
-          type="text"
-          name="arrival"
-          value={newTrip.arrival}
-          onChange={handleTripChange}
-          placeholder="Enter Arrival"
-        />
-        <input
-          type="date"
-          name="date"
-          value={newTrip.date}
-          onChange={handleTripChange}
-        />
-        <button onClick={handleAddTrip}>Add New Trip</button>
+      <h3>Add New Schedule</h3>
+      <div>
+        <input type="date" name="date" value={newUpdateSchedule.date} onChange={handleUpdateScheduleChange} />
+        <input type="text" name="route" value={newUpdateSchedule.route} onChange={handleUpdateScheduleChange} placeholder="Enter Route" />
+        <input type="text" name="departureTime" value={newUpdateSchedule.departureTime} onChange={handleUpdateScheduleChange} placeholder="Enter Departure Time" />
+        <input type="text" name="departureArea" value={newUpdateSchedule.departureArea} onChange={handleUpdateScheduleChange} placeholder="Enter Departure Area" />
+        <input type="text" name="destination" value={newUpdateSchedule.destination} onChange={handleUpdateScheduleChange} placeholder="Enter Destination" />
+        <input type="number" name="availableSeats" value={newUpdateSchedule.availableSeats} onChange={handleUpdateScheduleChange} placeholder="Enter Available Seats" />
+        <input type="number" name="price" value={newUpdateSchedule.price} onChange={handleUpdateScheduleChange} placeholder="Enter Price" />
+        <button onClick={handleAddUpdateSchedule}>Add Schedule</button>
       </div>
     </div>
   );
 
   return (
-    <div className="drivers-dashboard-container">
-      {/* Sidebar Navigation */}
-      <div className="drivers-sidebar">
-        {/* Arrow Left Icon */}
-        <div className="arrow-left">
-          <FaArrowLeft className="arrow-icon" onClick={() => handleTabClick("home")} />
-        </div>
-            
-        <ul>
-          <li onClick={() => handleTabClick("home")}><FaHome /> Home</li>
-          <li onClick={() => handleTabClick("showTrips")}><FaBus /> Show Trips</li>
-          <li onClick={() => handleTabClick("updateProfile")}><FaUserCircle /> Profile</li>
-          <li onClick={() => handleTabClick("dutyStatus")}><FaUserCircle /> Duty Status</li>
-          <li onClick={() => handleTabClick("messages")}><FaEnvelope/>Message</li>
-        </ul>
-        </div>
+    <div className="driver-dashboard">
+      <div className="sidebar">
+        <button onClick={() => handleTabClick("home")}><FaHome /> Home</button>
+        <button onClick={() => handleTabClick("showTrips")}><FaBus /> Trips</button>
+        <button onClick={() => handleTabClick("dutyStatus")}><FaArrowLeft /> Duty Status</button>
+        <button onClick={() => handleTabClick("messages")}><FaEnvelope /> Messages</button>
+        <button onClick={() => handleTabClick("updateProfile")}><FaUserCircle /> Profile</button>
+        <button onClick={() => handleTabClick("UpdateBusSchedule")}>Update Schedule</button>
+      </div>
 
-
-
-      {/* Main Section: Topbar + Dashboard Content */}
-      <div className="drivers-main-content">
-        {/* Topbar Section */}
-        <div className="drivers-topbar">
-          <h1 className="company-name">Safari Link</h1>
-          <input type="text" placeholder="Search..." className="search-bar" />
-          <div className="profile-container">
-            <FaUserCircle className="driver-icon" />
-          </div>
-        </div>
-
-        {/* Dashboard Content */}
-        <div className="drivers-dashboard-content">
-          <h2>Welcome, {driverDetails.firstName}!</h2>
-
-          {/* Render content based on activeTab */}
-          {activeTab === "home" && renderHomeContent()}
-          {activeTab === "updateProfile" && renderUpdateProfile()}
-          {activeTab === "showTrips" && renderShowTrips()}
-          {activeTab === "messages" && renderMessage()}
-          {activeTab === "dutyStatus" && renderDutyStatus()}
-        </div>
+      <div className="content">
+        {activeTab === "home" && renderHomeContent()}
+        {activeTab === "updateProfile" && renderUpdateProfile()}
+        {activeTab === "showTrips" && renderShowTrips()}
+        {activeTab === "dutyStatus" && renderDutyStatus()}
+        {activeTab === "messages" && renderMessage()}
+        {activeTab === "UpdateBusSchedule" && renderUpdateSchedules()}
       </div>
     </div>
   );

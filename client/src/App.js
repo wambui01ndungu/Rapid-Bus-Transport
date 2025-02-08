@@ -57,7 +57,7 @@ function App() {
       📍 Headquarters: Nairobi, Kenya <br />
       📞 Phone: +254 700 123 456 <br />
       📧 Email: support@rapidbustransport.com <br />
-      🌍 Website: www.rapidbustransport.com <br /><br />
+      🌍 Website: https://rapid-bus-transport.vercel.app/www.rapidbustransport.com <br /><br />
       Our support team is available 24/7 to assist you.
     </>
   )} 

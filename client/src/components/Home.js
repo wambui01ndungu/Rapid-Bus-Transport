@@ -1,7 +1,28 @@
-import React from 'react';
-import './Home.css'; // Ensure to create and link a separate CSS file for Home styling
+import React,{useState} from 'react';
+import './Home.css'; 
+
 
 const Home = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Array of image file names (inside public folder)
+  const images = [
+    "/bus1.jpg",
+    "/bus2.jpg",
+    "/bus3.jpg",
+    "/bus4.jpg"
+  ];
+
+  // Handlers to change the image index
+  const handleNext = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+  };
+
+  const handlePrev = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+  };
+
+
   return (
     <div className="home">
       {/* Welcome Section */}
@@ -16,6 +37,14 @@ const Home = () => {
         <h2>Our Fleet</h2>
         <div className="image-placeholder">
           <img src="https://plus.unsplash.com/premium_photo-1661963542752-9a8a1d72fb28?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVzJTIwZmxlZXR8ZW58MHx8MHx8fDA%3D" alt="Bus Fleet" />
+        </div>
+        <div>
+          <button className="arrow left" onClick={handlePrev}>
+            &#8592;
+          </button>
+          <button className="arrow right" onClick={handleNext}>
+            &#8594;
+          </button>
         </div>
         <p>We operate a large fleet of modern, comfortable buses to ensure your travel experience is safe, timely, and enjoyable.</p>
       </section>

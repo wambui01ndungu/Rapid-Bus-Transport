@@ -1,167 +1,281 @@
-/* General Layout */
-.drivers-dashboard-container {
-  display: flex;
-  height: 100vh;
-  background-color: #f9fafb; /* Light gray background */
-  font-family: Arial, sans-serif;
-}
-
-/* Sidebar Navigation */
-.drivers-sidebar {
-  width: 250px;
-  background-color: #1f2937; /* Dark gray (tailwind: gray-800) */
-  color: white;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-}
-
-.drivers-sidebar ul {
-  list-style: none;
+/* Reset some default styles */
+* {
+  margin: 0;
   padding: 0;
-}
-
-.drivers-sidebar li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.drivers-sidebar li:hover {
-  background-color: #374151; /* Slightly lighter gray */
-}
-
-.arrow-left {
-  margin-bottom: 2rem;
-  display: flex;
-  justify-content: flex-start;
-  cursor: pointer;
-}
-
-.arrow-icon {
-  font-size: 1.5rem;
-  color: white;
-}
-
-/* Topbar Section */
-.drivers-topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #4b5563; /* Tailwind gray-700 */
-  color: white;
-}
-
-.company-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.search-bar {
-  width: 50%;
-  padding: 0.5rem;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-/* Profile Icon */
-.profile-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.driver-icon {
-  font-size: 2rem;
-}
-
-/* Main Dashboard Content */
-.drivers-main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.drivers-dashboard-content {
-  padding: 2rem;
-  background-color: rgb(67, 93, 131);
-  border-radius: 8px;
-  margin: 1rem 2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-/* Forms and Tables */
-input,
-select,
-button {
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  border: 1px solid #d1d5db; /* Tailwind gray-300 */
-  border-radius: 4px;
-  font-size: 1rem;
-  width: 100%;
   box-sizing: border-box;
 }
 
-button {
-  background-color: #3b82f6; /* Tailwind blue-500 */
-  color: white;
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Main container that holds both sidebar and content */
+.driver-dashboard {
+  display: flex;
+  height: 100vh; /* Full viewport height */
+}
+
+/* Sidebar style */
+.sidebar {
+  width: 250px; /* Sidebar width */
+  height: 100vh;
+  background-color: #2c3e50;
+  padding: 20px;
+  color: white; /* Add color for visibility */
+  display: flex;
+  flex-direction: column; /* Align content vertically */
+  gap: 20px; /* Adds space between items */
+}
+/* Container for icon and name */
+.sidebar-button {
+  display: flex;
+  align-items: center; /* Ensures icon and name are vertically aligned */
+  gap: 10px; /* Adds space between the icon and the name */
+}
+
+/* Content section */
+.content {
+  flex-grow: 1; /* Takes the remaining space after sidebar */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start; /* Align content to the top */
+  padding: 20px;
+  background-color: #f4f4f4; /* Light background for visibility */
+
+}
+/* Home Section Styling */
+.home-content {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin: 20px;
+}
+
+.home-content h2 {
+  font-size: 28px;
+  color: #1f3735; /* Dark slate for the heading */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.driver-details {
+  background-color: #2c3e50;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(31, 41, 55, 0.1);
+  margin-bottom: 20px;
+}
+
+.driver-details h3 {
+  font-size: 20px;
+  color: #d97706; 
+  margin-bottom: 10px;
+}
+
+.driver-details p {
+  font-size: 16px;
+  color: #f4f6f5;
+  margin-bottom: 5px;
+}
+
+.drivers-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.drivers-action-buttons button {
+  padding: 10px 15px;
+  font-size: 16px;
   border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #d97706; /* Using your orange color */
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.drivers-action-buttons button:hover {
+  background-color: #918d89; /* A slightly darker shade */
+}
+
+.home-content> button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2c3e50;
+  color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #2563eb; /* Tailwind blue-600 */
+.home-content > button:hover {
+  background-color: #1f2937;
+}
+/* Trips Section Styles */
+.trips-container {
+  
+  margin-top: 20px;
 }
 
-.drivers-table {
+.trips-table-container {
+  margin-bottom: 20px;
+}
+
+table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
 }
 
-.drivers-table th,
-.drivers-table td {
-  border: 1px solid #d1d5db; /* Tailwind gray-300 */
-  padding: 0.75rem;
+table th,
+ table td {
+  padding: 12px;
   text-align: left;
+  color: #1f2937;
+  border: 1px solid #9c9999;
 }
 
-.drivers-table th {
-  background-color: #f3f4f6; /* Light gray */
+table th {
+  background-color: #f4f4f4;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.add-trip-form {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.add-trip-form h4 {
+  background-color: #f5f6f7;
+  color: #1f2937;
+  margin-bottom: 15px;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.input-fields input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.add-trip-button {
+  padding: 10px 20px;
+  background-color: #d97706;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 20%;
+  margin-left: 300px;
+  font-size: 1rem;
+}
+
+.add-trip-button:hover {
+  background-color: #5e5f61;
+}
+
+/* Main Container */
+.duty-status-container {
+  width: 60%;
+  margin-top: 0px ;
+  margin-left: 180px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Titles */
+.duty-status-title,
+.add-duty-title {
+  text-align: center;
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+/* Table Styling */
+.table-container {
+  overflow-x: auto;
+}
+
+.duty-status-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.duty-status-table th,
+.duty-status-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.duty-status-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Status Colors */
+.on-duty {
+  color: green;
   font-weight: bold;
 }
 
-/* Messages */
-.message-container {
-  margin-bottom: 1rem;
+.off-duty {
+  color: red;
+  font-weight: bold;
 }
 
-.message {
-  padding: 0.5rem;
-  border: 1px solid #d1d5db; /* Tailwind gray-300 */
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
-}
-
-.send-message-section {
+/* Add Duty Status Section */
+.add-duty-container {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
 }
 
-.send-message-section input {
-  flex: 1;
+.duty-input,
+.duty-select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.add-duty-btn {
+  background-color: #d97706;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-duty-btn:hover {
+  background-color: #4b4c4c;
 }
