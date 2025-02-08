@@ -33,13 +33,16 @@ function Login() {
       localStorage.setItem("user_role", data.role);
       localStorage.setItem("username", data.name || "User");
 
-      if (data.role === "admin") {
-        navigate("/dashboard");
-      } else if (data.role === "Driver") {
-        navigate("/driver-dashboard");
-      } else {
-        navigate("/");
-      }
+      setTimeout(() => {
+        const storedRole = localStorage.getItem("user_role");
+        if (storedRole === "admin") {
+            navigate("/dashboard");
+        } else if (storedRole === "Driver") {
+            navigate("/driver-dashboard");
+        } else {
+            navigate("/");
+        }
+      }, 100);
     } catch (error) {
       console.error("Login error:", error); // Log the error for debugging
       setError(error.message || "Server error. Please try again.");
