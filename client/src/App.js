@@ -10,33 +10,14 @@ import DriverDashboard from "./components/DriverDashboard";
 import BusSchedule from "./components/BusSchedule";
 import UserDashboard from "./components/UserDashboard";
 import CompanyAbout from "./components/CompanyAbout";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const navigate = useNavigate();
-    const [token, setToken] = useState(localStorage.getItem("token")); // Make token reactive
-    const [username, setUsername] = useState(localStorage.getItem("username")); // Make username reactive
-    const [userRole, setUserRole] = useState(localStorage.getItem("user_role")); // Make userRole reactive
-    
-
-    useEffect(() => {
-        // This effect will run whenever localStorage changes (including when set in Login)
-        const handleStorageChange = () => {
-            setToken(localStorage.getItem("token"));
-            setUsername(localStorage.getItem("username"));
-            setUserRole(localStorage.getItem("user_role"));
-        };
-
-        window.addEventListener('storage', handleStorageChange); // Listen for storage changes
-
-        // Initial check in case values are already in localStorage on page load
-        handleStorageChange();
-
-        return () => { // Clean up the listener when the component unmounts
-            window.removeEventListener('storage', handleStorageChange);
-        };
-    }, []); // Empty dependency array ensures this runs only once on mount and unmount
+  const token = localStorage.getItem("token");
+  const username = localStorage.getItem("username"); // Retrieve username
+  const userRole = localStorage.getItem("user_role");
 
 
   const [modalContent, setModalContent] = useState(null);
