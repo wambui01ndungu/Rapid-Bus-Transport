@@ -9,7 +9,7 @@ const SignupForm = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "", 
+    role: "Customer", 
   
   });
 
