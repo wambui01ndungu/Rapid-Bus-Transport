@@ -35,7 +35,7 @@ function Login() {
 
       if (data.role === "admin") {
         navigate("/dashboard");
-      } else if (data.role.toLowerCase() === "driver") {
+      } else if (data.role === "Driver") {
         navigate("/driver-dashboard");
       } else {
         navigate("/");
