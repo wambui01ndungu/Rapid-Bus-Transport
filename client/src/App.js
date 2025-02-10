@@ -96,14 +96,15 @@ function App() {
           <Route path="/bookings" element={<UserDashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignupForm />} />
-          <Route
+          <Route path="/driver-dashboard" element={<DriverDashboard/>} />     
+          {/* <Route
             path="/driver-dashboard"
             element={
               <ProtectedRoute requiredRole="Driver" userRole={userRole}>
                 <DriverDashboard />
               </ProtectedRoute>
             }
-          />
+          />*/}
           <Route
             path="/dashboard"
             element={

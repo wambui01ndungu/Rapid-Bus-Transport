@@ -134,3 +134,37 @@ const BusSchedule = () => {
 };
 
 export default BusSchedule;
+
+
+/*function BusSchedules({ busSchedules }) {
+  return (
+    <div>
+      <h3>Bus Schedules</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Bus Number</th>
+            <th>Date</th>
+            <th>Route</th>
+            <th>Departure Time</th>
+            <th>Seats</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {busSchedules.map((bus) => (
+            <tr key={bus.id}>
+              <td>{bus.busNumber}</td>
+              <td>{bus.date}</td>
+              <td>{bus.route}</td>
+              <td>{bus.departureTime}</td>
+              <td>{bus.availableSeats}</td>
+              <td>{bus.price}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+*/

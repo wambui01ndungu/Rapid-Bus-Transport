@@ -1,167 +1,673 @@
-/* General Layout */
-.drivers-dashboard-container {
-  display: flex;
-  height: 100vh;
-  background-color: #f9fafb; /* Light gray background */
-  font-family: Arial, sans-serif;
-}
-
-/* Sidebar Navigation */
-.drivers-sidebar {
-  width: 250px;
-  background-color: #1f2937; /* Dark gray (tailwind: gray-800) */
-  color: white;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-}
-
-.drivers-sidebar ul {
-  list-style: none;
+/* Reset some default styles */
+* {
+  margin: 0;
   padding: 0;
-}
-
-.drivers-sidebar li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.drivers-sidebar li:hover {
-  background-color: #374151; /* Slightly lighter gray */
-}
-
-.arrow-left {
-  margin-bottom: 2rem;
-  display: flex;
-  justify-content: flex-start;
-  cursor: pointer;
-}
-
-.arrow-icon {
-  font-size: 1.5rem;
-  color: white;
-}
-
-/* Topbar Section */
-.drivers-topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #4b5563; /* Tailwind gray-700 */
-  color: white;
-}
-
-.company-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.search-bar {
-  width: 50%;
-  padding: 0.5rem;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-/* Profile Icon */
-.profile-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.driver-icon {
-  font-size: 2rem;
-}
-
-/* Main Dashboard Content */
-.drivers-main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.drivers-dashboard-content {
-  padding: 2rem;
-  background-color: rgb(67, 93, 131);
-  border-radius: 8px;
-  margin: 1rem 2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-/* Forms and Tables */
-input,
-select,
-button {
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  border: 1px solid #d1d5db; /* Tailwind gray-300 */
-  border-radius: 4px;
-  font-size: 1rem;
-  width: 100%;
   box-sizing: border-box;
 }
 
-button {
-  background-color: #3b82f6; /* Tailwind blue-500 */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Main container that holds both sidebar and content */
+.driver-dashboard {
+  display: flex;
+  height: 100vh; /* Full viewport height */
+}
+
+/* Sidebar style */
+.sidebar {
+  width: 250px; /* Sidebar width */
+  height: 100vh;
+  background-color: #2c3e50;
+  padding: 20px;
+  color: white; /* Add color for visibility */
+  display: flex;
+  flex-direction: column; /* Align content vertically */
+  gap: 20px; /* Adds space between items */
+}
+
+/* Container for icon and name */
+.sidebar-item {
+  display: flex;
+  align-items: center; /* Ensures icon and name are vertically aligned */
+  gap: 10px; /* Adds space between the icon and the name */
+}
+
+/* Content section */
+.content {
+  flex-grow: 1; /* Takes the remaining space after sidebar */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start; /* Align content to the top */
+  padding: 20px;
+  background-color: #787676; /* Light background for visibility */
+}
+/* DriverDashboard.css */
+
+/* === Content Section === */
+.content {
+  padding: 20px;
+  background-color: #f4f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex; /* Arrange sections horizontally */
+  flex-wrap: wrap; /* Allow wrapping if needed */
+  align-items: flex-start; /* Align items to the top */
+  gap: 20px; /* Space between sections */
+}
+
+/* === Home Content Title === */
+.content h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #d76d09;
+  width: 70%; /* Ensures it spans full width */
+}
+
+/* === Driver Details Box (Starts from Left) === */
+.driver-details {
+  background-color: #9d9999;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(12, 12, 12, 0.1);
+  display: flex;
+  flex-direction: column; /* Ensures details stack in a column */
+  width: 700px; /* Limits width */
+
+}
+
+/* === Action Buttons Wrapper (Aligned Left & Minimal Gap) === */
+.drivers-action-buttons {
+  display: flex; /* Arrange buttons in a row */
+  justify-content: flex-start; /* Align buttons to the left */
+  gap: 10px; /* Minimal space between buttons */
+  margin-top: 10px;
+}
+
+/* === Button Styling === */
+.drivers-action-buttons button {
+  background-color: #d97706;
   color: white;
+  padding: 8px 16px; /* Reduced padding for normal size */
   border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease;
 }
 
-button:hover {
-  background-color: #2563eb; /* Tailwind blue-600 */
+.drivers-action-buttons button:hover {
+  background-color: #b96304;
 }
 
-.drivers-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
+
+.drivers-action-buttons button:hover {
+  background-color: #797a7b;
+}
+/* Styling for driver details container */
+.driver-details {
+  display: flex;
+  justify-content: space-between; /* Space out the two sections */
+  align-items: center; /* Align them vertically in the middle */
+  padding: 15px;
+  background-color: #7e7979;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.drivers-table th,
-.drivers-table td {
-  border: 1px solid #d1d5db; /* Tailwind gray-300 */
-  padding: 0.75rem;
-  text-align: left;
-}
-
-.drivers-table th {
-  background-color: #f3f4f6; /* Light gray */
+.driver-details p strong {
   font-weight: bold;
 }
 
-/* Messages */
-.message-container {
-  margin-bottom: 1rem;
+/* Italic styling for values (driver detail values) */
+.driver-details p span {
+  font-style: italic;
+  color: #555; /* Optional: add color for better readability */
 }
 
-.message {
-  padding: 0.5rem;
-  border: 1px solid #d1d5db; /* Tailwind gray-300 */
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
+
+
+
+
+
+
+
+
+/* Trips Section Styles */
+.trips-container {
+  margin-top: 10px;
+  width: 950px;
 }
 
-.send-message-section {
+.trips-table-container {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 12px;
+  text-align: left;
+  color: #2c3e50;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #169e4a;
+}
+
+table tr:nth-child(even) {
+  background-color: #b7aeae;
+}
+
+.add-trip-form {
+  width: 550px;
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.add-trip-form h4 {
+  margin-bottom: 15px;
+  color: chocolate;
+}
+
+.input-fields {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
-.send-message-section input {
-  flex: 1;
+.input-fields input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
 }
+
+.add-trip-button {
+  padding: 10px 20px;
+  background-color: #e07612;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.add-trip-button:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+
+/* DutyStatus.css */
+.duty-status-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f4f4f4;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3 {
+  text-align: center;
+  color: #333;
+}
+
+.duty-status-list {
+  margin-top: 10px;
+}
+
+.duty-status-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.on-duty {
+  color: green;
+  font-weight: bold;
+}
+
+.off-duty {
+  color: red;
+  font-weight: bold;
+}
+
+.add-duty-status-container {
+  margin-top: 20px;
+}
+
+.add-duty-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-duty-form input, .add-duty-form select, .add-duty-form button {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.add-duty-form button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.add-duty-form button:hover {
+  background-color: #0056b3;
+}
+/* Main Container */
+.duty-status-container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Titles */
+.duty-status-title,
+.add-duty-title {
+  text-align: center;
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+/* Table Styling */
+.table-container {
+  overflow-x: auto;
+}
+
+.duty-status-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.duty-status-table th,
+.duty-status-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.duty-status-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Status Colors */
+.on-duty {
+  color: green;
+  font-weight: bold;
+}
+
+.off-duty {
+  color: red;
+  font-weight: bold;
+}
+
+/* Add Duty Status Section */
+.add-duty-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  width: 500px;
+  margin-top: 10px;
+}
+
+.duty-input,
+.duty-select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.add-duty-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-duty-btn:hover {
+  background-color: #218838;
+}
+
+
+
+
+
+
+
+
+
+
+/* Main Message Container */
+.message-container {
+  width: 100%;
+  max-width: 600px; /* Limit the width of the container */
+  padding: 15px;
+  margin: 20px auto;
+  background-color: #f9f9f9; /* Light background color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Light shadow */
+  word-wrap: break-word; /* Allow long words to break and fit the container */
+  white-space: normal; /* Ensure text breaks into new lines */
+  height: auto; /* Let the container height expand based on content */
+}
+/* For Message Text */
+.message-text {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333; /* Set text color */
+}
+
+/* Section Titles */
+.message-title {
+  text-align: center;
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+/* Message Input Section */
+.message-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.message-input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.send-message-btn {
+  background-color: #007bff;
+  color: white;
+  width: 130px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.send-message-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Messages Table */
+.table-container {
+  overflow-x: auto;
+}
+
+.message-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.message-table th,
+.message-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.message-table th {
+  background-color: #28a745;
+  color: white;
+}
+
+
+
+
+
+
+/* Container Styling */
+.update-profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh; /* Full viewport height */
+  background-color: #f4f7fc; /* Soft background color */
+  padding: 20px;
+}
+
+/* Form Styling */
+.profile-form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px; /* Limiting the form's width */
+  margin-top: 15px;
+}
+
+/* Heading Styling */
+.update-profile-container h3 {
+  text-align: center;
+  font-size: 24px;
+  color: #ff5733; /* Orange-Red color for the title */
+  font-weight:bold ;
+  margin-bottom: 20px;
+  align-self:center;
+}
+
+/* Label Styling */
+.profile-form label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 16px;
+}
+
+/* Input Styling */
+.profile-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #fbf7f7;
+}
+
+/* Button Styling */
+.profile-form button {
+  width: 40%;
+  padding: 12px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.profile-form button:hover {
+  background-color: #0056b3;
+}
+
+.profile-form button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .profile-form {
+    padding: 20px;
+    width: 90%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Styling for the entire container */
+.update-schedule-container {
+  width: 100%; /* Full width for better responsiveness */
+  max-width: 900px; /* Maximum width for large screens */
+  margin: 20px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Allows scrolling if content overflows vertically */
+  max-height: 600px; /* Optional: Set a max height to trigger scrolling */
+}
+
+/* Table Styling */
+.schedule-table {
+  width: 100%;
+  table-layout: fixed; /* Ensures equal column width */
+  border-collapse: collapse;
+  word-wrap: break-word; /* Ensures text wraps properly */
+  margin-bottom: 20px; /* Spacing between table and other elements */
+}
+/* Table header styling */
+.schedule-table th {
+  background-color: #4CAF50; /* Green shade that blends well with a light background */
+  color: white; /* White text for readability */
+  padding: 10px 15px; /* Add padding for better spacing */
+  font-weight: bold; /* Make the text bold */
+  text-align: center; /* Center align the text */
+}
+.schedule-table th, .schedule-table td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd; /* Light border for table cells */
+  color: #161a60;
+}
+
+/* Add New Schedule Form */
+.add-schedule-form {
+  margin-top: 30px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Input and Button Styling */
+.add-schedule-form input,
+.add-schedule-form button {
+  width: 100%;
+  max-width: 300px; /* Limit the width of input fields */
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: rgb(218, 213, 213);
+}
+
+.add-schedule-form input[type="date"] {
+  font-size: 14px;
+}
+
+.add-schedule-form button {
+  background-color: #da8607;
+  color: white;
+  cursor: pointer;
+  width: 150px; /* Set smaller width */
+  padding: 8px 12px; /* Reduce padding */
+  font-size: 14px; /* Adjust font size */
+  margin-top: 20px; /* Add space between inputs and the button */
+}
+
+.add-schedule-form button:hover {
+  background-color: #dea010;
+}
+
+/* Button Styling for the Table */
+.table-container button {
+  padding: 10px 15px;
+  font-size: 14px;
+  background-color: #25a366;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.table-container button:hover {
+  background-color: #676869;
+}
+
+/* Responsive Layout Adjustments */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr; /* Stack inputs in one column */
+  }
+
+  .add-schedule-form input,
+  .add-schedule-form button {
+    max-width: 100%; /* Ensure inputs fit on smaller screens */
+  }
+}
+/* Styling for the section titles */
+.section-title {
+  font-weight: bold; /* Make the section titles bold */
+  font-size: 24px; /* Adjust font size */
+  margin-bottom: 15px; /* Space between title and content */
+}
+
+/* Optional: You can also adjust the font color if you want */
+.section-title {
+  color: #333; /* Dark color for better readability */
+}
+
+/* Avoid content overflow */
+.add-schedule-form, .table-container {
+  overflow: hidden; /* Prevent content from spilling over */
+  text-overflow: ellipsis; /* In case of long text */
+}
+
