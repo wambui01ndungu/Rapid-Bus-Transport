@@ -97,7 +97,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignupForm />} />
              
-          /* <Route
+          <Route
             path="/driver-dashboard"
             element={
               <ProtectedRoute requiredRole="Driver" userRole={userRole}>
