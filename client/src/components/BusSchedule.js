@@ -2,6 +2,105 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./BusSchedule.css";
 
+// **Simulated Bus Schedule Data**
+const simulatedBusSchedules = [
+  {
+    id: "1",
+    bus_number: "SR 5",
+    date: "2025-02-15",
+    route: "Nairobi-Mombasa",
+    departure: "07:00",
+    departure_area: "Nairobi",
+    destination: "Mombasa",
+    available_seats: 40,
+    price: 3500,
+  },
+  {
+    id: "2",
+    bus_number: "SR 7",
+    date: "2025-02-15",
+    route: "Mombasa-Nairobi",
+    departure: "08:00",
+    departure_area: "Mombasa",
+    destination: "Nairobi",
+    available_seats: 30,
+    price: 1300,
+  },
+  {
+    id: "3",
+    bus_number: "SR 32",
+    date: "2025-02-16",
+    route: "Nairobi-Kisumu",
+    departure: "09:00",
+    departure_area: "Nairobi",
+    destination: "Kisumu",
+    available_seats: 15,
+    price: 1500,
+  },
+  {
+    id: "4",
+    bus_number: "SR 23",
+    date: "2025-02-16",
+    route: "Kisumu-Nairobi",
+    departure: "10:00",
+    departure_area: "Kisumu",
+    destination: "Nairobi",
+    available_seats: 20,
+    price: 1400,
+  },
+  {
+    id: "5",
+    bus_number: "SR 20",
+    date: "2025-02-17",
+    route: "Nairobi-Nakuru",
+    departure: "11:00",
+    departure_area: "Nairobi",
+    destination: "Nakuru",
+    available_seats: 35,
+    price: 1000,
+  },
+  {
+    id: "6",
+    bus_number: "SR 4",
+    date: "2025-02-17",
+    route: "Nakuru-Nairobi",
+    departure: "12:00",
+    departure_area: "Nakuru",
+    destination: "Nairobi",
+    available_seats: 40,
+    price: 900,
+  },
+];
+
+// **searchBuses Function**
+export const searchBuses = async ({ terminal, destination, date, time }) => {
+    // Simulate API call delay
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  
+    const filteredBuses = simulatedBusSchedules.filter((bus) => {
+      const terminalMatch = bus.departure_area.toLowerCase().includes(terminal.toLowerCase());
+      const destinationMatch = bus.destination.toLowerCase().includes(destination.toLowerCase());
+      const dateMatch = bus.date === date;
+  
+      //Allow a 30 minute time range
+      const [searchHours, searchMinutes] = time.split(":").map(Number);
+      const [busHours, busMinutes] = bus.departure.split(":").map(Number);
+  
+      const searchTimeInMinutes = searchHours * 60 + searchMinutes;
+      const busTimeInMinutes = busHours * 60 + busMinutes;
+  
+      const timeDifference = Math.abs(searchTimeInMinutes - busTimeInMinutes);
+      const timeMatch = timeDifference <= 30;
+  
+      return terminalMatch && destinationMatch && dateMatch && timeMatch;
+    });
+  
+    return {
+      success: true,
+      buses: filteredBuses,
+    };
+  };
+
 const BusSchedule = () => {
   const [busSchedules, setBusSchedules] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
@@ -9,76 +108,6 @@ const BusSchedule = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
   const navigate = useNavigate();
-
-  // **Simulated Bus Schedule Data**
-  const simulatedBusSchedules = [
-    {
-      id: "1",
-      bus_number: "SR 5",
-      date: "2025-02-15",
-      route: "Nairobi-Mombasa",
-      departure: "07:00",
-      departure_area: "Nairobi CBD",
-      destination: "Mombasa",
-      available_seats: 25,
-      price: 1200,
-    },
-    {
-      id: "2",
-      bus_number: "SR 7",
-      date: "2025-02-15",
-      route: "Mombasa-Nairobi",
-      departure: "08:00",
-      departure_area: "Mombasa",
-      destination: "Nairobi CBD",
-      available_seats: 30,
-      price: 1300,
-    },
-    {
-      id: "3",
-      bus_number: "SR 32",
-      date: "2025-02-16",
-      route: "Nairobi-Kisumu",
-      departure: "09:00",
-      departure_area: "Nairobi CBD",
-      destination: "Kisumu",
-      available_seats: 15,
-      price: 1500,
-    },
-    {
-      id: "4",
-      bus_number: "SR 23",
-      date: "2025-02-16",
-      route: "Kisumu-Nairobi",
-      departure: "10:00",
-      departure_area: "Kisumu",
-      destination: "Nairobi CBD",
-      available_seats: 20,
-      price: 1400,
-    },
-    {
-      id: "5",
-      bus_number: "SR 20",
-      date: "2025-02-17",
-      route: "Nairobi-Nakuru",
-      departure: "11:00",
-      departure_area: "Nairobi CBD",
-      destination: "Nakuru",
-      available_seats: 35,
-      price: 1000,
-    },
-    {
-      id: "6",
-      bus_number: "SR 4",
-      date: "2025-02-17",
-      route: "Nakuru-Nairobi",
-      departure: "12:00",
-      departure_area: "Nakuru",
-      destination: "Nairobi CBD",
-      available_seats: 40,
-      price: 900,
-    },
-  ];
 
   useEffect(() => {
     // Simulate fetching schedules from an API
@@ -107,9 +136,7 @@ const BusSchedule = () => {
   );
 
   // Dynamically generate route options
-  const availableRoutes = [
-    ...new Set(busSchedules.map((bus) => bus.route)),
-  ];
+  const availableRoutes = [...new Set(busSchedules.map((bus) => bus.route))];
 
   const handleBookNow = (bus) => {
     const token = localStorage.getItem("token");
@@ -160,7 +187,7 @@ const BusSchedule = () => {
             <tr>
               <th>Bus number</th>
               <th>Route</th>
-              <th>Date</th> 
+              <th>Date</th>
               <th>Departure Time</th>
               <th>Departure Area</th>
               <th>Destination</th>
