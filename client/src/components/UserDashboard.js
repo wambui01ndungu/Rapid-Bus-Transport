@@ -1,12 +1,9 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { Clock, MapPin, Wallet, Calendar, Truck, Loader2 } from "lucide-react"
-// Update this line specifically
 import { SeatSelector } from './SeatSelector.jsx'
 import { createBooking, cancelBooking, fetchAvailableSeats } from "../lib/actions/booking"
+import { searchBuses } from "./BusSchedule" // Assume this function exists to search buses
 
-// Simple toast function to replace sonner
 const toast = {
   success: (message) => alert(message),
   error: (message) => alert(message),
@@ -24,19 +21,44 @@ const UserDashboard = () => {
   const [availableSeats, setAvailableSeats] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [bookings, setBookings] = useState([])
+  const [searchResults, setSearchResults] = useState([])
+  const [selectedBus, setSelectedBus] = useState(null)
 
   const terminals = ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
   const destinations = ["Mombasa", "Nairobi", "Kisumu", "Nakuru", "Eldoret"]
 
-  useEffect(() => {
-    if (bookingData.date && bookingData.time) {
-      loadAvailableSeats()
+  const handleSearch = async () => {
+    if (!bookingData.terminal || !bookingData.destination || !bookingData.date || !bookingData.time) {
+      toast.error("Please fill in all booking details")
+      return
     }
-  }, [bookingData.date, bookingData.time])
 
-  const loadAvailableSeats = async () => {
     setIsLoading(true)
-    const result = await fetchAvailableSeats("bus-1", bookingData.date)
+    const results = await searchBuses({
+      terminal: bookingData.terminal,
+      destination: bookingData.destination,
+      date: bookingData.date,
+      time: bookingData.time,
+    })
+
+    if (results.success) {
+      setSearchResults(results.buses);
+      console.log("Search Results:", results.buses); 
+    } else {
+      toast.error("Failed to search buses")
+    }
+    setIsLoading(false)
+  }
+
+  const handleSelectBus = (bus) => {
+    console.log("Selected Bus:", bus);
+    setSelectedBus(bus)
+    loadAvailableSeats(bus.id)
+  }
+
+  const loadAvailableSeats = async (busId) => {
+    setIsLoading(true)
+    const result = await fetchAvailableSeats(busId, bookingData.date)
     if (result.success) {
       setAvailableSeats(result.seats)
     } else {
@@ -51,15 +73,10 @@ const UserDashboard = () => {
       return
     }
 
-    if (!bookingData.terminal || !bookingData.destination || !bookingData.date || !bookingData.time) {
-      toast.error("Please fill in all booking details")
-      return
-    }
-
     setIsLoading(true)
     const result = await createBooking({
       userId: "user-1",
-      busId: "bus-1",
+      busId: selectedBus.id,
       seatNumber: selectedSeat.number,
       terminal: bookingData.terminal,
       destination: bookingData.destination,
@@ -80,6 +97,8 @@ const UserDashboard = () => {
         date: "",
       })
       setSelectedSeat(null)
+      setSelectedBus(null)
+      setSearchResults([])
     } else {
       toast.error("Failed to create booking")
     }
@@ -103,6 +122,7 @@ const UserDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      {/* Header and Navigation remain unchanged */}
       {/* Header */}
       <header className="bg-amber-600 p-4 text-white">
         <div className="flex items-center justify-between max-w-6xl mx-auto">
@@ -117,12 +137,12 @@ const UserDashboard = () => {
               <span className="font-bold">Kshs 3,500</span>
             </span>
             <div className="h-8 w-px bg-white/50"></div>
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center">
                 <span>JD</span>
               </div>
               <span>John Doe</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </header>
@@ -222,7 +242,47 @@ const UserDashboard = () => {
               </div>
             </div>
 
-            {bookingData.date && bookingData.time && (
+            <button
+              onClick={handleSearch}
+              disabled={isLoading || !bookingData.terminal || !bookingData.destination || !bookingData.date || !bookingData.time}
+              className="w-full bg-amber-600 text-white py-3 rounded-lg hover:bg-amber-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-6"
+            >
+              {isLoading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Searching...
+                </span>
+              ) : (
+                "Search Buses"
+              )}
+            </button>
+
+            {searchResults.length > 0 ? (
+        <div className="mt-6">
+            <h3 className="text-xl font-bold mb-4">Available Buses</h3>
+            {searchResults.map((bus) => (
+                <div
+                    key={bus.id}
+                    className={`p-4 border rounded-lg mb-2 cursor-pointer ${selectedBus?.id === bus.id ? "bg-amber-50 border-amber-600" : "bg-white"
+                        }`}
+                    onClick={() => handleSelectBus(bus)}
+                >
+                    <div className="flex items-center justify-between">
+                        <span className="font-medium">{bus.name}</span>
+                        <span>{bus.departureTime}</span>
+                    </div>
+                </div>
+            ))}
+        </div>
+    ) : (
+        searchResults.length === 0 && bookingData.terminal !== "" && (
+            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                <p className="text-gray-700">No available buses found for the selected criteria.</p>
+            </div>
+        )
+    )
+}
+            {selectedBus && (
               <div className="mt-6">
                 {isLoading ? (
                   <div className="flex items-center justify-center p-8">
@@ -234,28 +294,30 @@ const UserDashboard = () => {
               </div>
             )}
 
-            <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-              <div className="flex items-center justify-between mb-4">
-                <span className="font-medium text-gray-900">Selected Seat Price:</span>
-                <span className="text-2xl font-bold text-gray-900">
-                  {selectedSeat ? `Kshs ${selectedSeat.price}` : "No seat selected"}
-                </span>
-              </div>
-              <button
-                onClick={handleBooking}
-                disabled={isLoading || !selectedSeat}
-                className="w-full bg-amber-600 text-white py-3 rounded-lg hover:bg-amber-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLoading ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Processing...
+            {selectedBus && selectedSeat && (
+              <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-medium text-gray-900">Selected Seat Price:</span>
+                  <span className="text-2xl font-bold text-gray-900">
+                    {selectedSeat ? `Kshs ${selectedSeat.price}` : "No seat selected"}
                   </span>
-                ) : (
-                  "Book Now"
-                )}
-              </button>
-            </div>
+                </div>
+                <button
+                  onClick={handleBooking}
+                  disabled={isLoading || !selectedSeat}
+                  className="w-full bg-amber-600 text-white py-3 rounded-lg hover:bg-amber-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Processing...
+                    </span>
+                  ) : (
+                    "Book Now"
+                  )}
+                </button>
+              </div>
+            )}
           </div>
         </main>
       ) : activeTab === "BOOKINGS" ? (
