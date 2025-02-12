@@ -5,6 +5,7 @@ import { Clock, MapPin, Wallet, Calendar, Truck, Loader2 } from "lucide-react"
 // Update this line specifically
 import { SeatSelector } from './SeatSelector.jsx'
 import { createBooking, cancelBooking, fetchAvailableSeats } from "../lib/actions/booking"
+import { useLocation } from "react-router-dom";
 
 // Simple toast function to replace sonner
 const toast = {
@@ -24,15 +25,27 @@ const UserDashboard = () => {
   const [availableSeats, setAvailableSeats] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [bookings, setBookings] = useState([])
+  const location = useLocation();
 
   const terminals = ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
   const destinations = ["Mombasa", "Nairobi", "Kisumu", "Nakuru", "Eldoret"]
 
   useEffect(() => {
-    if (bookingData.date && bookingData.time) {
-      loadAvailableSeats()
+    // Check if bus data is passed through location.state
+    if (location.state && location.state.bus) {
+        const { bus } = location.state;
+        setBookingData({
+            terminal: bus.departure_area,
+            destination: bus.destination,
+            time: bus.departure,
+            date: bus.date,
+        });
     }
-  }, [bookingData.date, bookingData.time])
+
+    if (bookingData.date && bookingData.time) {
+        loadAvailableSeats();
+    }
+  }, [location.state, bookingData.date, bookingData.time]);
 
   const loadAvailableSeats = async () => {
     setIsLoading(true)
