@@ -33,7 +33,7 @@ function Login() {
             localStorage.setItem("user_role", data.role);
             localStorage.setItem("username", data.name || "User");
 
-            setUserRole(data.role); // Update the state, triggering useEffect
+            setUserRole(data.role); 
         } catch (error) {
             console.error("Login error:", error);
             setError(error.message || "Server error. Please try again.");
@@ -41,12 +41,12 @@ function Login() {
     };
 
     useEffect(() => {
-        if (userRole) { // Check if userRole is set (not null)
-            const storedRole = localStorage.getItem("user_role"); // Get from storage here if needed
+        if (userRole) { 
+            const storedRole = localStorage.getItem("user_role"); 
 
-            if (storedRole && storedRole.toLowerCase() === "driver") { // Lowercase comparison!
+            if (storedRole && storedRole.toLowerCase() === "driver") { // Lowercase comparison
                 navigate("/driver-dashboard");
-            } else if (storedRole && storedRole.toLowerCase() === "admin") { // Lowercase comparison!
+            } else if (storedRole && storedRole.toLowerCase() === "admin") { // Lowercase comparison
                 navigate("/dashboard");
             } else {
                 navigate("/");

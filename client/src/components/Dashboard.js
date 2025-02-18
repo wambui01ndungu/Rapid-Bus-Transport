@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDown, Home, User } from "lucide-react";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { Link } from "react-router-dom"; 
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState("DASHBOARD OVERVIEW");
@@ -63,7 +63,6 @@ const Dashboard = () => {
               className="pl-8 pr-4 py-2 rounded-full bg-gray-200 text-black"
             />
           </div>
-          {/* Add the Signup Link here */}
           <Link 
             to="/signup" 
             className="text-black hover:text-gray-800 transition-colors"

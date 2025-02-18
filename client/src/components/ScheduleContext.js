@@ -1,4 +1,3 @@
-// ScheduleContext.js
 import React, { createContext, useState } from 'react';
 
 export const ScheduleContext = createContext();

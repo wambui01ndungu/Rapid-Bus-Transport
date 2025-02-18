@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { Clock, MapPin, Wallet, Calendar, Truck, Loader2 } from "lucide-react"
 import { SeatSelector } from './SeatSelector.jsx'
 import { createBooking, cancelBooking, fetchAvailableSeats } from "../lib/actions/booking"
-import { searchBuses } from "./BusSchedule" // Assume this function exists to search buses
+import { searchBuses } from "./BusSchedule" 
 
 const toast = {
   success: (message) => alert(message),
@@ -122,7 +122,6 @@ const UserDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Header and Navigation remain unchanged */}
       {/* Header */}
       <header className="bg-amber-600 p-4 text-white">
         <div className="flex items-center justify-between max-w-6xl mx-auto">

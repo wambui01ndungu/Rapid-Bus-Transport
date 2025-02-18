@@ -74,7 +74,6 @@ const simulatedBusSchedules = [
 
 // **searchBuses Function**
 export const searchBuses = async ({ terminal, destination, date, time }) => {
-    // Simulate API call delay
     await new Promise((resolve) => setTimeout(resolve, 500));
   
     const filteredBuses = simulatedBusSchedules.filter((bus) => {
@@ -82,7 +81,7 @@ export const searchBuses = async ({ terminal, destination, date, time }) => {
       const destinationMatch = bus.destination.toLowerCase().includes(destination.toLowerCase());
       const dateMatch = bus.date === date;
   
-      //Allow a 30 minute time range
+      //Allows a 30 minute time range
       const [searchHours, searchMinutes] = time.split(":").map(Number);
       const [busHours, busMinutes] = bus.departure.split(":").map(Number);
   
@@ -110,12 +109,10 @@ const BusSchedule = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Simulate fetching schedules from an API
     const fetchSchedules = async () => {
       setLoading(true);
       setError(null); // Clear any previous errors
       try {
-        // Simulate API call delay
         await new Promise((resolve) => setTimeout(resolve, 500));
         setBusSchedules(simulatedBusSchedules); // Set with simulated data
       } catch (err) {
@@ -135,20 +132,19 @@ const BusSchedule = () => {
       (selectedDate === "" || bus.date === selectedDate)
   );
 
-  // Dynamically generate route options
+  // Dynamically generates route options
   const availableRoutes = [...new Set(busSchedules.map((bus) => bus.route))];
 
   const handleBookNow = (bus) => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      // Check if token exists (not just if it's "true")
-      alert(`Booking ${bus.bus_number}`); // Or your actual booking logic
-      // ... your booking logic here (API call, etc.) ...
+      // Checks if token exists (not just if it's "true")
+      alert(`Booking ${bus.bus_number}`); 
     } else {
       // User is not logged in, redirect to login/signup
       alert("You must be logged in to book a bus.");
-      navigate("/login"); // Or navigate("/signup")
+      navigate("/login");
     }
   };
 

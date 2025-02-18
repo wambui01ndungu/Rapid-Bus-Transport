@@ -3,7 +3,7 @@ const bookings = []
 
 export async function createBooking(booking) {
   try {
-    // Simulate API call
+    // Simulated API call
     await new Promise((resolve) => setTimeout(resolve, 1000))
 
     const newBooking = {
@@ -12,7 +12,7 @@ export async function createBooking(booking) {
       createdAt: new Date().toISOString(),
     }
 
-    // Simulate storing the booking
+    // Simulated storing of booking
     bookings.push(newBooking)
     console.log("Created booking:", newBooking)
 

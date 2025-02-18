@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app, origins=["https://rapid-bus-transport.vercel.app"])
 
 # Database Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')  # Change for production
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI') 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 app.config['JWT_SECRET_KEY'] = '0224a25effb65031eeea76b0c52ce3b86733d608b4db2f4d26abb677c0e502b8'
@@ -66,7 +66,7 @@ class UserRegister(Resource):
         return {
             "message": "User registered successfully",
             "token": access_token,
-            "username": user.name,  # Or use a dedicated 'username' field if you have one
+            "username": user.name,  
             "role": user.role
             }, 201
 

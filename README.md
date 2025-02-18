@@ -9,6 +9,7 @@ The **Bus Booking Web Application** is designed to streamline bus booking and sc
 #### **1. Admin**
 - Manages system operations.
 - Oversees bookings, payments, and bus schedules.
+- **Note**: The first user registered is the sole admin.
 
 #### **2. Drivers / Bus Owners**
 - Register new buses (seats, cost, routes, schedules).
