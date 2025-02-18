@@ -1,7 +1,7 @@
-# Bus Booking Web Application
+# Safiri Link Web Application
 
 ## Overview
-The **Bus Booking Web Application** is designed to streamline bus booking and scheduling in Kenya. The system allows users to book seats, manage schedules, and process payments efficiently. This web application is hosted on [https://rapid-bus-transport.vercel.app/], allowing for seamless access from any device with an internet connection. For a deeper look into the application's features and functionality, check out the presentation slides below:
+The **Safiri Link Web Application** is designed to streamline bus booking and scheduling in Kenya. The system allows users to book seats, manage schedules, and process payments efficiently. This web application is hosted on [https://rapid-bus-transport.vercel.app/], allowing for seamless access from any device with an internet connection. For a deeper look into the application's features and functionality, check out the presentation slides below:
 [(https://www.canva.com/design/DAGeWSeQA8E/Wj8YovF0Z6G5O5RmMpPfuQ/edit?utm_content=DAGeWSeQA8E&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)]
 
 ## Features
